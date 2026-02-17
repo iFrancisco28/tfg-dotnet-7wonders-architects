@@ -97,8 +97,4 @@
 	  </MauiImage>
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Folder Include="Domain\Entities\" />
-	</ItemGroup>
-
 </Project>
