@@ -19,7 +19,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
             Stone,
             Clay,
             Papyrus,
-            Glass,
+            Bottle,
             Gold
         }
 
