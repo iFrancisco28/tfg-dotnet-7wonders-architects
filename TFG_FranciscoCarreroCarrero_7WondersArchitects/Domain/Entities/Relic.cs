@@ -51,10 +51,30 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
         public void BuildPart(int partNumber) {
             switch (partNumber) {
                 case 1: Part1IsBuilt = true; break;
-                case 2: Part2IsBuilt = true; break;
-                case 3: Part3IsBuilt = true; break;
-                case 4: Part4IsBuilt = true; break;
-                case 5: Part5IsBuilt = true; break;
+                case 2: 
+                    if (!Part1IsBuilt){
+                        throw new InvalidOperationException("Part 1 must be built before building Part 2.");
+                    }
+                    Part2IsBuilt = true; 
+                    break;
+                case 3:
+                    if (!Part2IsBuilt) {
+                        throw new InvalidOperationException("Part 2 must be built before building Part 3.");
+                    }
+                    Part3IsBuilt = true;
+                    break;
+                case 4:
+                    if (!Part3IsBuilt) {
+                        throw new InvalidOperationException("Part 3 must be built before building Part 4.");
+                    }
+                    Part4IsBuilt = true;
+                    break;
+                case 5:
+                    if (!Part4IsBuilt) {
+                        throw new InvalidOperationException("Part 4 must be built before building Part 5.");
+                    }
+                    Part5IsBuilt = true;
+                    break;
                 default: throw new ArgumentException("Invalid relic part number.");
             }
         }

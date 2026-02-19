@@ -11,8 +11,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
             Resource,
             Military,
             Science,
-            Civilian,
-            Guild
+            VictoryPoint
         }
 
         public enum ResourceType {
@@ -20,38 +19,68 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
             Stone,
             Clay,
             Papyrus,
-            Glass
+            Glass,
+            Gold
         }
 
-        public enum ScienceSymbol {
+        public enum ScienceType {
             Compass,
             Tablet,
             Gear
         }
 
         public string Id;
-        public string Name;
         public CardType Type;
 
-        // Recursos
-        public ResourceType? ResourceProduced;
-
         // Militar
-        public int Shields;
+        public int Horns;
 
         // Ciencia
-        public ScienceSymbol? Science;
+        public ScienceType? Science;
 
-        // Civil
+        // Recurso
+        public ResourceType? Resource;
+
+        // Puntos de victoria
         public int VictoryPoints;
+        public bool HasCat;
 
-        // Gremios
-        public string GuildEffectId;
-
-        public Card(string id, string name, CardType type) {
+        //constructor carta Recurso
+        public Card(string id, CardType Cardtype, ResourceType resourceType) {
             Id = id;
-            Name = name;
-            Type = type;
+            Type = Cardtype;
+            Resource = resourceType;
         }
+
+        //constructor carta Ciencia
+        public Card(string id, CardType Cardtype, ScienceType scienceType) {
+            Id = id;
+            Type = Cardtype;
+            Science = scienceType;
+        }
+
+        //constructor carta Puntos Victoria
+        public Card(string id, CardType Cardtype, int victoryPoints, bool hasCat) {
+            Id = id;
+            Type = Cardtype;
+            VictoryPoints = victoryPoints;
+            HasCat = hasCat;
+        }
+
+        //constructor carta Militar
+        public Card(string id, CardType Cardtype, int horns) {
+            Id = id;
+            Type = Cardtype;
+            Horns = horns;
+        }
+
+
+        public static ResourceType[] GetAllResourceTypes() {
+            return Enum.GetValues<ResourceType>();
+        }
+        public static ScienceType[] GetAllScienceTypes() {
+            return Enum.GetValues<ScienceType>();
+        }
+
     }
 }

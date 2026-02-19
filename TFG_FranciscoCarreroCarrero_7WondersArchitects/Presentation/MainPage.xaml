@@ -3,13 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TFG_FranciscoCarreroCarrero_7WondersArchitects.MainPage">
 
-    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto">
+    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="Auto">
 
-        <Image Grid.Row="4" Source="guiza/maravilla/guiza0a.png"  WidthRequest="250" Margin="20,0,0,0" Aspect="AspectFit"/>
-        <Image Grid.Row="3" Source="guiza/maravilla/guiza1a.png"  WidthRequest="200" Margin="20,0,0,0" Aspect="AspectFit"/>
-        <Image Grid.Row="2" Source="guiza/maravilla/guiza2a.png"  WidthRequest="160" Margin="20,0,0,0" Aspect="AspectFit"/>
-        <Image Grid.Row="1" Source="guiza/maravilla/guiza3a.png"  WidthRequest="130" Margin="20,0,0,0" Aspect="AspectFit"/>
-        <Image Grid.Row="0" Source="guiza/maravilla/guiza4a.png"  WidthRequest="60"  Margin="20,0,0,0" Aspect="AspectFit"/>
+        <Image Grid.Row="4" Source="guiza/maravilla/guiza0a.png"  WidthRequest="250" Margin="0,0,0,0" Aspect="AspectFit"/>
+        <Image Grid.Row="3" Source="guiza/maravilla/guiza1a.png"  WidthRequest="200" Margin="0,0,0,0" Aspect="AspectFit"/>
+        <Image Grid.Row="2" Source="guiza/maravilla/guiza2a.png"  WidthRequest="160" Margin="0,0,0,0" Aspect="AspectFit"/>
+        <Image Grid.Row="1" Source="guiza/maravilla/guiza3a.png"  WidthRequest="130" Margin="0,0,0,0" Aspect="AspectFit"/>
+        <Image Grid.Row="0" Source="guiza/maravilla/guiza4a.png"  WidthRequest="60"  Margin="0,0,0,0" Aspect="AspectFit"/>
+        <Button Grid.Row="5" Text="robar" Margin="20" Clicked="Button_Clicked"/>
 
     </Grid>
 
