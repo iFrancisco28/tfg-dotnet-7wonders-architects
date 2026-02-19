@@ -82,5 +82,10 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
             return Enum.GetValues<ScienceType>();
         }
 
+        public override string ToString() {
+            // Puedes personalizar esto como más te guste para leerlo rápido en la consola
+            return $"Card(Id: {Id}, Type: {Type}, Resource: {Resource}, Science: {Science}, VictoryPoints: {VictoryPoints}, HasCat: {HasCat}, Horns: {Horns})";
+        }
+
     }
 }

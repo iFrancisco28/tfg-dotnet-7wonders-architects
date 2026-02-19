@@ -11,6 +11,7 @@
         <Image Grid.Row="1" Source="guiza/maravilla/guiza3a.png"  WidthRequest="130" Margin="0,0,0,0" Aspect="AspectFit"/>
         <Image Grid.Row="0" Source="guiza/maravilla/guiza4a.png"  WidthRequest="60"  Margin="0,0,0,0" Aspect="AspectFit"/>
         <Button Grid.Row="5" Text="robar" Margin="20" Clicked="Button_Clicked"/>
+        <Button Grid.Row="6" Text="robar" Margin="20" Clicked="ButtonMostrar_Clicked"/>
 
     </Grid>
 
