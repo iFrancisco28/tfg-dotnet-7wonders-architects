@@ -103,7 +103,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             int vp3 = mazoPrincipal.Count(c => c.Type == Card.CardType.VictoryPoint && c.VictoryPoints == 3);
 
             // Montamos el texto final bien formateado para la alerta
-            string mensaje = $"TOTAL CARTAS: {total}\n\n" +
+            string mensaje = $"TOTAL CARTAS BARAJA COMUN: {total} (solo debug)\n\n" +
                              $"🪵 RECURSOS:\n" +
                              $" - Madera: {maderas} | Piedra: {piedras} | Arcilla: {arcillas}\n" +
                              $" - Papiro: {papiros} | Cristal: {cristales} | Oro: {oros}\n\n" +

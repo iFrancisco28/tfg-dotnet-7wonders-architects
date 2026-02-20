@@ -3,17 +3,80 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TFG_FranciscoCarreroCarrero_7WondersArchitects.MainPage">
 
-    <Grid RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto, Auto" ColumnDefinitions="Auto">
+    <Grid>
+        <Image Source="imagenesGlobales/fondo_pantalla.jpg"
+               Aspect="AspectFill"
+               InputTransparent="True" />
 
-        <Image Grid.Row="4" Source="guiza/maravilla/guiza0a.png"  WidthRequest="250" Margin="0,0,0,0" Aspect="AspectFit"/>
-        <Image Grid.Row="3" Source="guiza/maravilla/guiza1a.png"  WidthRequest="200" Margin="0,0,0,0" Aspect="AspectFit"/>
-        <Image Grid.Row="2" Source="guiza/maravilla/guiza2a.png"  WidthRequest="160" Margin="0,0,0,0" Aspect="AspectFit"/>
-        <Image Grid.Row="1" Source="guiza/maravilla/guiza3a.png"  WidthRequest="130" Margin="0,0,0,0" Aspect="AspectFit"/>
-        <Image Grid.Row="0" Source="guiza/maravilla/guiza4a.png"  WidthRequest="60"  Margin="0,0,0,0" Aspect="AspectFit"/>
-        <Button Grid.Row="5" Text="robar" Margin="20" Clicked="Button_Clicked"/>
-        <Button Grid.Row="6" Text="mostrar" Margin="20" Clicked="ButtonMostrar_Clicked"/>
+        <!--grid superpuesto-->
+        <Grid RowDefinitions="*,*,Auto"
+              ColumnDefinitions="*,*,*">
 
+            <!--bloque superior-->
+            <HorizontalStackLayout Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="3"
+                       Spacing="15"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center">
+
+                <ImageButton Source="cartasGenerales/carta_bocaabajo.png"
+                 HeightRequest="120"
+                 WidthRequest="80" 
+                 Aspect="AspectFit"
+                 Clicked="Button_Clicked"/>
+
+                <ImageButton x:Name="DiscardCard"
+                     Source="cartasGenerales/tres_puntos_victoria.png"
+                     HeightRequest="120"
+                     WidthRequest="85" 
+                     Aspect="AspectFit"
+                     Opacity="100"
+                     InputTransparent="True"/> <!--uso opacity porque si no reajusta la carta izq-->
+
+            </HorizontalStackLayout>
+
+            <!--baraja izq-->
+            <ImageButton Grid.Row="1"
+                         Grid.Column="0"
+                         Source="cartasGenerales/dos_puntos_victoria.png"
+                         HeightRequest="120"
+                         Aspect="AspectFit"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Start"
+                         Clicked="Button_Clicked"/>
+
+            <!--baraja der-->
+            <ImageButton Grid.Row="1"
+                         Grid.Column="2"
+                         Source="cartasGenerales/oro.png"
+                         HeightRequest="120"
+                         Aspect="AspectFit"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Start"
+                         Clicked="Button_Clicked"/>
+
+            <!--bloque maravilla-->
+            <VerticalStackLayout Grid.Row="2"
+                                 Grid.Column="1"
+                                 Spacing="10"
+                                 HorizontalOptions="Center"
+                                 Margin="0,20,0,20">
+
+                <Image Source="guiza/maravilla/guiza4a.png" WidthRequest="60"  Aspect="AspectFit"/>
+                <Image Source="guiza/maravilla/guiza3a.png" WidthRequest="130" Aspect="AspectFit"/>
+                <Image Source="guiza/maravilla/guiza2a.png" WidthRequest="160" Aspect="AspectFit"/>
+                <Image Source="guiza/maravilla/guiza1a.png" WidthRequest="200" Aspect="AspectFit"/>
+                <Image Source="guiza/maravilla/guiza0a.png" WidthRequest="250" Aspect="AspectFit"/>
+
+
+            <Button Text="pruebas"
+                Grid.Row="2"
+                Grid.ColumnSpan="3"
+                VerticalOptions="End"
+                Margin="20"
+                Clicked="ButtonMostrar_Clicked" />
+            </VerticalStackLayout>
+        </Grid>
     </Grid>
-
-
 </ContentPage>
