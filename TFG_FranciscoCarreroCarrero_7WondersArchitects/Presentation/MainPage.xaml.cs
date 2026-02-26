@@ -72,9 +72,16 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
 
             mazoPrincipal.RemoveAt(0);
 
+            ComprobarConstruccion();
+
         }
 
-        //metodo super detallado echo con la ia, para ver todo el contenido del mazo principal
+        private void ComprobarConstruccion() {
+        
+        
+        }
+
+        //metodo super detallado hecho con la ia, para ver todo el contenido del mazo principal
         private async void ButtonMostrar_Clicked(object sender, EventArgs e) {
             // Total
             int total = mazoPrincipal.Count;

@@ -63,11 +63,11 @@
                                  HorizontalOptions="Center"
                                  Margin="0,20,0,20">
 
-                <Image Source="guiza/maravilla/guiza4a.png" WidthRequest="60"  Aspect="AspectFit"/>
-                <Image Source="guiza/maravilla/guiza3a.png" WidthRequest="130" Aspect="AspectFit"/>
-                <Image Source="guiza/maravilla/guiza2a.png" WidthRequest="160" Aspect="AspectFit"/>
-                <Image Source="guiza/maravilla/guiza1a.png" WidthRequest="200" Aspect="AspectFit"/>
-                <Image Source="guiza/maravilla/guiza0a.png" WidthRequest="250" Aspect="AspectFit"/>
+                <Image x:Name="Parte5Reliquia" Source="guiza/maravilla/guiza4a.png" WidthRequest="60"  Aspect="AspectFit"/>
+                <Image x:Name="Parte4Reliquia" Source="guiza/maravilla/guiza3a.png" WidthRequest="130" Aspect="AspectFit"/>
+                <Image x:Name="Parte3Reliquia" Source="guiza/maravilla/guiza2a.png" WidthRequest="160" Aspect="AspectFit"/>
+                <Image x:Name="Parte2Reliquia" Source="guiza/maravilla/guiza1a.png" WidthRequest="200" Aspect="AspectFit"/>
+                <Image x:Name="Parte1Reliquia" Source="guiza/maravilla/guiza0a.png" WidthRequest="250" Aspect="AspectFit"/>
 
 
             <Button Text="pruebas"
