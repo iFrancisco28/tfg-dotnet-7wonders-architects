@@ -16,9 +16,17 @@
             <HorizontalStackLayout Grid.Row="0"
                        Grid.Column="0"
                        Grid.ColumnSpan="3"
-                       Spacing="15"
+                       Spacing="10"
                        HorizontalOptions="Center"
                        VerticalOptions="Center">
+                
+                <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                    <Image Source="fichasGenerales/ficha_progreso_arquitectura.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                    <Image Source="fichasGenerales/ficha_progreso_artesania.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                    <Image Source="fichasGenerales/ficha_progreso_arte.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                </VerticalStackLayout>
+
+                <Image Source="fichasGenerales/ficha_bocaabajo.png" HeightRequest="70" WidthRequest="70" Aspect="AspectFit" Margin="-18"/>
 
                 <ImageButton Source="cartasGenerales/carta_bocaabajo.png"
                  HeightRequest="120"
@@ -27,19 +35,25 @@
                  Clicked="Button_Clicked"/>
 
                 <ImageButton x:Name="DiscardCard"
-                     Source="cartasGenerales/tres_puntos_victoria.png"
+                     Source="cartasGenerales/puntos_victoria_tres.png"
                      HeightRequest="120"
                      WidthRequest="85" 
                      Aspect="AspectFit"
                      Opacity="100"
                      InputTransparent="True"/> <!--uso opacity porque si no reajusta la carta izq-->
 
+                <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                    <Image Source="fichasGenerales/ficha_conflicto_guerra.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                    <Image Source="fichasGenerales/ficha_conflicto_paz.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                    <Image Source="fichasGenerales/ficha_conflicto_paz.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                </VerticalStackLayout>
+
             </HorizontalStackLayout>
 
             <!--baraja izq-->
             <ImageButton Grid.Row="1"
                          Grid.Column="0"
-                         Source="cartasGenerales/dos_puntos_victoria.png"
+                         Source="cartasGenerales/puntos_victoria_dos.png"
                          HeightRequest="120"
                          Aspect="AspectFit"
                          HorizontalOptions="Center"
@@ -49,7 +63,7 @@
             <!--baraja der-->
             <ImageButton Grid.Row="1"
                          Grid.Column="2"
-                         Source="cartasGenerales/oro.png"
+                         Source="cartasGenerales/recurso_oro.png"
                          HeightRequest="120"
                          Aspect="AspectFit"
                          HorizontalOptions="Center"
