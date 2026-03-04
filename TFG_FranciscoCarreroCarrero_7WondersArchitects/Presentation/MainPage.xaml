@@ -26,7 +26,7 @@
                     <Image Source="fichasGenerales/ficha_progreso_arte.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
                 </VerticalStackLayout>
 
-                <Image Source="fichasGenerales/ficha_bocaabajo.png" HeightRequest="70" WidthRequest="70" Aspect="AspectFit" Margin="-18"/>
+                <Image Source="fichasGenerales/ficha_bocaabajo.png" HeightRequest="45" WidthRequest="70" Aspect="AspectFit" Margin="-18"/>
 
                 <ImageButton Source="cartasGenerales/carta_bocaabajo.png"
                  HeightRequest="120"
@@ -69,13 +69,35 @@
                          HorizontalOptions="Center"
                          VerticalOptions="Start"
                          Clicked="Button_Clicked"/>
+            
+            
+            <!--aqui mas -->
+            <Grid Grid.Row="1" 
+                  Grid.ColumnSpan="3" 
+                  ColumnDefinitions="*,*,*"
+                  VerticalOptions="End" 
+                  Margin="0,0,0,-15">
+                <Image Grid.Column="0" 
+                       Source="fichasGenerales/fichas_progreso.png" 
+                       HeightRequest="110" 
+                       HorizontalOptions="Center"/>
+    
+                <Image Grid.Column="1" 
+                       Source="fichasGenerales/carta_gato.png" 
+                       HeightRequest="90" 
+                       HorizontalOptions="Center"/>
 
+                <Image Grid.Column="2" 
+                       Source="fichasGenerales/fichas_guerra.png" 
+                       HeightRequest="90" 
+                       HorizontalOptions="Center"/>
+            </Grid>
             <!--bloque maravilla-->
             <VerticalStackLayout Grid.Row="2"
                                  Grid.Column="1"
                                  Spacing="10"
                                  HorizontalOptions="Center"
-                                 Margin="0,20,0,20">
+                                 Margin="0,25,0,20">
 
                 <Image x:Name="Parte5Reliquia" Source="guiza/maravilla/guiza4a.png" WidthRequest="60"  Aspect="AspectFit"/>
                 <Image x:Name="Parte4Reliquia" Source="guiza/maravilla/guiza3a.png" WidthRequest="130" Aspect="AspectFit"/>
@@ -84,11 +106,11 @@
                 <Image x:Name="Parte1Reliquia" Source="guiza/maravilla/guiza0a.png" WidthRequest="250" Aspect="AspectFit"/>
 
 
-            <Button Text="pruebas"
+            <Button Text="mazoPropio"
                 Grid.Row="2"
                 Grid.ColumnSpan="3"
                 VerticalOptions="End"
-                Margin="20"
+                Margin="0"
                 Clicked="ButtonMostrar_Clicked" />
             </VerticalStackLayout>
         </Grid>
