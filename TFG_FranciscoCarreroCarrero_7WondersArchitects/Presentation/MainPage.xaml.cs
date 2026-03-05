@@ -1,4 +1,6 @@
-﻿using TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities;
+﻿using CommunityToolkit.Maui.Extensions;
+using TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities;
+using TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation;
 
 namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
 {
@@ -79,6 +81,11 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         private void ComprobarConstruccion() {
         
         
+        }
+
+        private void ButtonShowPlayerDeck(object sender, EventArgs e) {
+            var popup = new PlayerDeckPopup();
+            this.ShowPopup(popup);
         }
 
         //metodo super detallado hecho con la ia, para ver todo el contenido del mazo principal
