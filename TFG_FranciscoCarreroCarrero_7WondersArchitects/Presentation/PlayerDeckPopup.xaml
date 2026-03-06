@@ -3,7 +3,94 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation.PlayerDeckPopup">
-    <VerticalStackLayout>
+    <VerticalStackLayout Spacing="15">
         
+        <Border BackgroundColor="#F0F0F0" 
+                HorizontalOptions="Start"
+                WidthRequest="210"
+                StrokeShape="RoundRectangle 8">
+            <Picker x:Name="OpcionesPicker" 
+                    HorizontalOptions="Center"
+                    SelectedIndex="0"
+                    WidthRequest="200"
+                    HorizontalTextAlignment="Center"
+                    SelectedIndexChanged="OpcionesPicker_SelectedIndexChanged">
+                <Picker.Items>
+                    <x:String>Cartas de Recursos</x:String>
+                    <x:String>Cartas de Ciencia</x:String>
+                    <x:String>Cartas de Puntos de Victoria</x:String>
+                    <x:String>Cartas de Guerra</x:String>
+                </Picker.Items>
+            </Picker>
+        </Border>
+
+        <Grid x:Name="GridCartasRecursos" RowDefinitions="Auto, Auto" ColumnDefinitions="*, *, *" RowSpacing="10" ColumnSpacing="10">
+            <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
+                <Image Source="recurso_arcilla.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="Carta 1" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
+                <Image Source="recurso_botella.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="Carta 2" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
+                <Image Source="recurso_madera.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="Carta 3" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="Center">
+                <Image Source="recurso_papiro.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="Carta 4" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="Center">
+                <Image Source="recurso_piedra.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="Carta 5" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="1" Grid.Column="2" HorizontalOptions="Center">
+                <Image Source="recurso_oro.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="Carta 6" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <Grid x:Name="GridCartasCiencia" IsVisible="False" RowDefinitions="Auto" ColumnDefinitions="*, *, *" ColumnSpacing="10">
+            <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
+                <Image Source="ciencia_compas.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="A" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
+                <Image Source="ciencia_engranaje.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="B" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
+                <Image Source="ciencia_tablilla.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="C" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <Grid x:Name="GridCartasPV" IsVisible="False" RowDefinitions="Auto" ColumnDefinitions="*, *" ColumnSpacing="10">
+            <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
+                <Image Source="puntos_victoria_tres.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="X" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
+                <Image Source="puntos_victoria_dos.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="Y" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <Grid x:Name="GridCartasGuerra" IsVisible="False" RowDefinitions="Auto" ColumnDefinitions="*, *, *" ColumnSpacing="10">
+            <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
+                <Image Source="guerra0cuernos.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="Maravilla 1" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
+                <Image Source="guerra1cuernos.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="Maravilla 2" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+            <VerticalStackLayout Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
+                <Image Source="guerra2cuernos.png" HeightRequest="140" WidthRequest="120"/>
+                <Label Text="Maravilla 3" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+        </Grid>
+
     </VerticalStackLayout>
 </toolkit:Popup>
