@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui.Extensions;
 using TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities;
 using TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation;
+using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
 {
@@ -14,6 +15,8 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             InitializeComponent();
             PreparacionCartas();
         }
+
+        private int etapaConstruccion = 0;
 
         //lo hago aqui de momento, pero luego se hara en la capa de dominio
         private void PreparacionCartas() {
@@ -73,14 +76,73 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             DisplayAlert("Has robado", mazoPrincipal[0].ToString(), "OK");
 
             mazoPrincipal.RemoveAt(0);
-
             ComprobarConstruccion();
 
         }
 
         private void ComprobarConstruccion() {
-        
-        
+            if (etapaConstruccion > 4) return;
+
+            //numero cartas por recurso
+            int maderas = mazoMano.Count(c => c.Resource == Card.ResourceType.Wood);
+            int piedras = mazoMano.Count(c => c.Resource == Card.ResourceType.Stone);
+            int arcillas = mazoMano.Count(c => c.Resource == Card.ResourceType.Clay);
+            int papiros = mazoMano.Count(c => c.Resource == Card.ResourceType.Papyrus);
+            int cristales = mazoMano.Count(c => c.Resource == Card.ResourceType.Bottle);
+            int oros = mazoMano.Count(c => c.Resource == Card.ResourceType.Gold);
+
+            int[] recursos = { maderas, piedras, arcillas, papiros, cristales };
+
+            int diferentes = recursos.Count(c => c > 0); 
+            int maxIguales = recursos.Max(); 
+
+            bool puedeConstruir = false;
+            
+            //como se en que etapa estoy no salto
+            switch (etapaConstruccion) {
+                case 0: // 2 diferentes
+                    puedeConstruir = (diferentes + oros) >= 2;
+                    break;
+                case 1: // 2 iguales
+                    puedeConstruir = (maxIguales + oros) >= 2;
+                    break;
+                case 2: // 3 diferentes
+                    puedeConstruir = (diferentes + oros) >= 3;
+                    break;
+                case 3: // 3 iguales
+                    puedeConstruir = (maxIguales + oros) >= 3;
+                    break;
+                case 4: // 4 diferentes
+                    puedeConstruir = (diferentes + oros) >= 4;
+                    break;
+            }
+
+            //cambiar imagen (construir para el usuario)
+            if (puedeConstruir) {
+                switch (etapaConstruccion) {
+                    case 0:
+                        Parte1Reliquia.Source = "guiza/maravilla/guiza0b.png";
+                        break;
+                    case 1:
+                        Parte2Reliquia.Source = "guiza/maravilla/guiza1b.png";
+                        break;
+                    case 2:
+                        Parte3Reliquia.Source = "guiza/maravilla/guiza2b.png";
+                        break;
+                    case 3:
+                        Parte4Reliquia.Source = "guiza/maravilla/guiza3b.png";
+                        break;
+                    case 4:
+                        Parte5Reliquia.Source = "guiza/maravilla/guiza4b.png";
+                        break;
+                }
+
+                DisplayAlert("Nueva etapa!", $"Has completado la parte {etapaConstruccion + 1} de Guiza", "Ok");
+
+                etapaConstruccion++;
+
+                // falta gastar las cartas usadas
+            }
         }
 
         private void ButtonShowPlayerDeck(object sender, EventArgs e) {

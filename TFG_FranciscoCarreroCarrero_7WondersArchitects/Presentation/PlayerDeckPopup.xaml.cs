@@ -19,7 +19,7 @@ public partial class PlayerDeckPopup : Popup {
         GridCartasCiencia.IsVisible = false;
         GridCartasPV.IsVisible = false;
         GridCartasGuerra.IsVisible = false;
-
+        
         // 2. Mostramos solo el que toca según lo que haya elegido el usuario
         switch (OpcionesPicker.SelectedIndex) {
             case 0:
