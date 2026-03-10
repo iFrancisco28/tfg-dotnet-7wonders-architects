@@ -99,18 +99,17 @@
                                  HorizontalOptions="Center"
                                  Margin="0,25,0,20">
 
-                <Image x:Name="Parte5Reliquia" Source="guiza/maravilla/guiza4a.png" WidthRequest="60"  Aspect="AspectFit"/>
-                <Image x:Name="Parte4Reliquia" Source="guiza/maravilla/guiza3a.png" WidthRequest="130" Aspect="AspectFit"/>
-                <Image x:Name="Parte3Reliquia" Source="guiza/maravilla/guiza2a.png" WidthRequest="160" Aspect="AspectFit"/>
-                <Image x:Name="Parte2Reliquia" Source="guiza/maravilla/guiza1a.png" WidthRequest="200" Aspect="AspectFit"/>
-                <Image x:Name="Parte1Reliquia" Source="guiza/maravilla/guiza0a.png" WidthRequest="250" Aspect="AspectFit"/>
+                <Image x:Name="Part5Relic" Source="guiza/maravilla/guiza4a.png" WidthRequest="60"  Aspect="AspectFit"/>
+                <Image x:Name="Part4Relic" Source="guiza/maravilla/guiza3a.png" WidthRequest="105" Aspect="AspectFit"/>
+                <Image x:Name="Part3Relic" Source="guiza/maravilla/guiza2a.png" WidthRequest="155" Aspect="AspectFit"/>
+                <Image x:Name="Part2Relic" Source="guiza/maravilla/guiza1a.png" WidthRequest="205" Aspect="AspectFit"/>
+                <Image x:Name="Part1Relic" Source="guiza/maravilla/guiza0a.png" WidthRequest="250" Aspect="AspectFit"/>
 
 
             <Button Text="mazoPropio"
                 Grid.Row="2"
                 Grid.ColumnSpan="3"
                 VerticalOptions="End"
-                Margin="0"
                 Clicked="ButtonShowPlayerDeck" />
             </VerticalStackLayout>
         </Grid>

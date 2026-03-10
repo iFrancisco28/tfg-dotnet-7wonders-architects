@@ -128,23 +128,23 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             if (puedeConstruir) {
                 switch (etapaConstruccion) {
                     case 0:
-                        Parte1Reliquia.Source = "guiza/maravilla/guiza0b.png";
+                        Part1Relic.Source = "guiza/maravilla/guiza0b.png";
                         borrarCartas(2, true, recursoMayor);
                         break;
                     case 1:
-                        Parte2Reliquia.Source = "guiza/maravilla/guiza1b.png";
+                        Part2Relic.Source = "guiza/maravilla/guiza1b.png";
                         borrarCartas(2, false, recursoMayor);
                         break;
                     case 2:
-                        Parte3Reliquia.Source = "guiza/maravilla/guiza2b.png";
+                        Part3Relic.Source = "guiza/maravilla/guiza2b.png";
                         borrarCartas(3, true, recursoMayor);
                         break;
                     case 3:
-                        Parte4Reliquia.Source = "guiza/maravilla/guiza3b.png";
+                        Part4Relic.Source = "guiza/maravilla/guiza3b.png";
                         borrarCartas(3, false, recursoMayor);
                         break;
                     case 4:
-                        Parte5Reliquia.Source = "guiza/maravilla/guiza4b.png";
+                        Part5Relic.Source = "guiza/maravilla/guiza4b.png";
                         borrarCartas(4, true, recursoMayor);
                         break;
                 }
