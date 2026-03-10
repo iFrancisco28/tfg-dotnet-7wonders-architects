@@ -24,71 +24,71 @@
             </Picker>
         </Border>
 
-        <Grid x:Name="GridCartasRecursos" RowDefinitions="Auto, Auto" ColumnDefinitions="*, *, *" RowSpacing="10" ColumnSpacing="10">
+        <Grid x:Name="GridResourcesCards" RowDefinitions="Auto, Auto" ColumnDefinitions="*, *, *" RowSpacing="10" ColumnSpacing="10">
             <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
                 <Image Source="recurso_arcilla.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="Carta 1" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="LblClayCard" Text="Tienes 0 cartas de arcilla" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
                 <Image Source="recurso_botella.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="Carta 2" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="LblGlassCard" Text="Tienes 0 cartas de cristal" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
                 <Image Source="recurso_madera.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="Carta 3" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="LblWoodCard" Text="Tienes 0 cartas de madera" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="1" Grid.Column="0" HorizontalOptions="Center">
                 <Image Source="recurso_papiro.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="Carta 4" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="LblPapyrusCard" Text="Tienes 0 cartas de papiro" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="1" Grid.Column="1" HorizontalOptions="Center">
                 <Image Source="recurso_piedra.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="Carta 5" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="LblStoneCard" Text="Tienes 0 cartas de piedra" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="1" Grid.Column="2" HorizontalOptions="Center">
                 <Image Source="recurso_oro.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="Carta 6" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="LblGoldCard" Text="Tienes 0 cartas de oro" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
         </Grid>
 
-        <Grid x:Name="GridCartasCiencia" IsVisible="False" RowDefinitions="Auto" ColumnDefinitions="*, *, *" ColumnSpacing="10">
+        <Grid x:Name="GridScienceCards" IsVisible="False" RowDefinitions="Auto" ColumnDefinitions="*, *, *" ColumnSpacing="10">
             <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
                 <Image Source="ciencia_compas.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="A" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="LblCompassCard" Text="Tienes 0 cartas de compas" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
                 <Image Source="ciencia_engranaje.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="B" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="LblGearCard" Text="Tienes 0 cartas de engranaje" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
                 <Image Source="ciencia_tablilla.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="C" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="LblTabletCard" Text="Tienes 0 cartas de tablilla" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
         </Grid>
 
-        <Grid x:Name="GridCartasPV" IsVisible="False" RowDefinitions="Auto" ColumnDefinitions="*, *" ColumnSpacing="10">
+        <Grid x:Name="GridVPCards" IsVisible="False" RowDefinitions="Auto" ColumnDefinitions="*, *" ColumnSpacing="10">
             <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
                 <Image Source="puntos_victoria_tres.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="X" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="LblVP3Card" Text="Tienes 0 cartas de 3 Puntos de Victoria" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
                 <Image Source="puntos_victoria_dos.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="Y" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="LblVP2Card" Text="Tienes 0 cartas de 2 Puntos de Victoria" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
         </Grid>
 
-        <Grid x:Name="GridCartasGuerra" IsVisible="False" RowDefinitions="Auto" ColumnDefinitions="*, *, *" ColumnSpacing="10">
+        <Grid x:Name="GridWarCards" IsVisible="False" RowDefinitions="Auto" ColumnDefinitions="*, *, *" ColumnSpacing="10">
             <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
                 <Image Source="guerra0cuernos.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="Maravilla 1" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="Lbl0WarCard" Text="Tienes 0 cartas de Guerra sin cuernos" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
                 <Image Source="guerra1cuernos.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="Maravilla 2" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="Lbl1WarCard" Text="Tienes 0 cartas de Guerra con 1 cuerno" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
                 <Image Source="guerra2cuernos.png" HeightRequest="140" WidthRequest="120"/>
-                <Label Text="Maravilla 3" HorizontalOptions="Center" FontSize="12"/>
+                <Label x:Name="Lbl2WarCard" Text="Tienes 0 cartas de Guerra con 2 cuernos" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
         </Grid>
 

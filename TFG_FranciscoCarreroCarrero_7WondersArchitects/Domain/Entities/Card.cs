@@ -19,7 +19,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
             Stone,
             Clay,
             Papyrus,
-            Bottle,
+            Glass,
             Gold
         }
 
@@ -83,8 +83,22 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
         }
 
         public override string ToString() {
-            // Puedes personalizar esto como más te guste para leerlo rápido en la consola
-            return $"Card(Id: {Id}, Type: {Type}, Resource: {Resource}, Science: {Science}, VictoryPoints: {VictoryPoints}, HasCat: {HasCat}, Horns: {Horns})";
+            switch (Type) {
+                case CardType.Resource:
+                    return $"Type: {Type}, Resource: {Resource}";
+
+                case CardType.Science:
+                    return $"Type: {Type}, Science: {Science}";
+
+                case CardType.Military:
+                    return $"Type: {Type}, Horns: {Horns}";
+
+                case CardType.VictoryPoint:
+                    return $"Type: {Type}, VictoryPoints: {VictoryPoints}, HasCat: {HasCat}";
+
+                default:
+                    return $"Type: {Type}";
+            }
         }
 
     }
