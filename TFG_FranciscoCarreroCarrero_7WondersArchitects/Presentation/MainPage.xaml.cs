@@ -2,6 +2,7 @@
 using TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities;
 using TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation;
 //using Windows.Networking.Connectivity;
+using TFG_FranciscoCarreroCarrero_7WondersArchitects.Services;
 using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
@@ -10,11 +11,13 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
     {
         List<Card> mazoPrincipal = new List<Card>();
         List<Card> mazoMano= new List<Card>();
+        private readonly SignalRService _signalRService;
 
         public MainPage()
         {
             InitializeComponent();
             PreparacionCartas();
+            _signalRService = new SignalRService();
         }
         //lo hago aqui de momento, pero luego se hara en la capa de dominio
         private int etapaConstruccion = 0;
@@ -191,6 +194,11 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             var popup = new PlayerDeckPopup(mazoMano);
             this.ShowPopup(popup);
         }
+
+
+
+
+
 
 
     }

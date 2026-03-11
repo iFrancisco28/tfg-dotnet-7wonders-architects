@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation.LoginPage"
+             Title="LoginPage">
+    <Grid>
+        <Image Source="imagenesGlobales/fondo_pantalla2.jpg"
+           Aspect="AspectFill"
+           InputTransparent="True" />
+
+        <!--grid superpuesto-->
+        <Grid>
+            <Border Stroke="Gray" 
+            StrokeThickness="1" 
+            StrokeShape="RoundRectangle 4" 
+            Padding="12,0">
+                <Entry Placeholder="Introduce tu nombre" 
+               BackgroundColor="Transparent" 
+               VerticalOptions="Center" />
+            </Border>
+            
+            <Border BackgroundColor="#F0F0F0" 
+                StrokeShape="RoundRectangle 8">
+                <Picker x:Name="OpcionesPicker" 
+                    SelectedIndex="0"
+                    HorizontalTextAlignment="Center"
+                    >
+                    <!--SelectedIndexChanged="OpcionesPicker_SelectedIndexChanged">-->
+                    <Picker.Items>
+                        <x:String>Guiza</x:String>
+                        <x:String>Alejandria</x:String>
+                    </Picker.Items>
+                </Picker>
+            </Border>
+
+            <Button Text="mazoPropio"
+                Clicked="Redirect" />
+
+        </Grid>
+    </Grid>
+</ContentPage>

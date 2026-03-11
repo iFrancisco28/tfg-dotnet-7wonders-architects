@@ -111,6 +111,10 @@
                 Grid.ColumnSpan="3"
                 VerticalOptions="End"
                 Clicked="ButtonShowPlayerDeck" />
+
+                <!--    
+                Clicked="OnBotonProbarClick" />
+                -->
             </VerticalStackLayout>
         </Grid>
     </Grid>
