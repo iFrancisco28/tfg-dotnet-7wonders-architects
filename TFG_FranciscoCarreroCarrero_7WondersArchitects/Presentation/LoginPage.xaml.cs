@@ -6,6 +6,6 @@ public partial class LoginPage : ContentPage {
 	}
 
 	private async void Redirect(object sender, EventArgs e) {
-        await Shell.Current.GoToAsync("//MainPage");
+        await Shell.Current.GoToAsync("GameBoardPage");
     }
 }

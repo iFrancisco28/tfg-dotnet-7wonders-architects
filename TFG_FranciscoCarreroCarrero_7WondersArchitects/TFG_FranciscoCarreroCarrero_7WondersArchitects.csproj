@@ -79,6 +79,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="Presentation\GameBoardPage.xaml.cs">
+	    <DependentUpon>GameBoardPage.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <MauiImage Update="Resources\Images\guiza\maravilla\guiza0a.png">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </MauiImage>

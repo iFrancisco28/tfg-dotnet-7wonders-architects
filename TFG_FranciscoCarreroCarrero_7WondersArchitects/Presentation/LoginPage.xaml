@@ -5,37 +5,55 @@
              Title="LoginPage">
     <Grid>
         <Image Source="imagenesGlobales/fondo_pantalla2.jpg"
-           Aspect="AspectFill"
-           InputTransparent="True" />
+               Aspect="AspectFill"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
 
-        <!--grid superpuesto-->
-        <Grid>
-            <Border Stroke="Gray" 
-            StrokeThickness="1" 
-            StrokeShape="RoundRectangle 4" 
-            Padding="12,0">
-                <Entry Placeholder="Introduce tu nombre" 
-               BackgroundColor="Transparent" 
-               VerticalOptions="Center" />
-            </Border>
-            
+        <VerticalStackLayout Spacing="20" 
+                             Padding="40" 
+                             VerticalOptions="Center"
+                             HorizontalOptions="Center"
+                             WidthRequest="350">
+
             <Border BackgroundColor="#F0F0F0" 
-                StrokeShape="RoundRectangle 8">
+                    StrokeShape="RoundRectangle 8" 
+                    HeightRequest="50">
+                <Entry Placeholder="Introduce tu nombre" 
+                       BackgroundColor="Transparent" 
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="Center" />
+            </Border>
+
+            <!--
+            <Border BackgroundColor="#F0F0F0" 
+                    StrokeShape="RoundRectangle 8" 
+                    HeightRequest="50">
+                <Entry Placeholder="Introduce tu contraseña" 
+                       IsPassword="True"
+                       BackgroundColor="Transparent" 
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="Center" />
+            </Border>
+            -->
+
+            <Border BackgroundColor="#F0F0F0" 
+                    StrokeShape="RoundRectangle 8"
+                    HeightRequest="50">
                 <Picker x:Name="OpcionesPicker" 
-                    SelectedIndex="0"
-                    HorizontalTextAlignment="Center"
-                    >
-                    <!--SelectedIndexChanged="OpcionesPicker_SelectedIndexChanged">-->
+                        Title="Selecciona una maravilla"
+                        HorizontalTextAlignment="Center"
+                        VerticalOptions="Center">
                     <Picker.Items>
                         <x:String>Guiza</x:String>
-                        <x:String>Alejandria</x:String>
+                        <x:String>Alejandría</x:String>
                     </Picker.Items>
                 </Picker>
             </Border>
 
-            <Button Text="mazoPropio"
-                Clicked="Redirect" />
-
-        </Grid>
+            <Button Text="Al tablero!"
+                    Clicked="Redirect" 
+                    CornerRadius="8"
+                    Margin="0,10,0,0"/>
+        </VerticalStackLayout>
     </Grid>
 </ContentPage>

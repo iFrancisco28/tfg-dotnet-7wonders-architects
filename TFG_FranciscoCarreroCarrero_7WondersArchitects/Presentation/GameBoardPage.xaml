@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TFG_FranciscoCarreroCarrero_7WondersArchitects.GameBoardPage">
+
+    <Grid>
+        <Image Source="imagenesGlobales/fondo_pantalla.jpg"
+               Aspect="AspectFill"
+               InputTransparent="True" />
+
+        <!--grid superpuesto-->
+        <Grid RowDefinitions="*,*,Auto"
+              ColumnDefinitions="*,*,*">
+
+            <!--bloque superior-->
+            <HorizontalStackLayout Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="3"
+                       Spacing="10"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center">
+                
+                <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                    <Image Source="fichasGenerales/ficha_progreso_arquitectura.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                    <Image Source="fichasGenerales/ficha_progreso_artesania.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                    <Image Source="fichasGenerales/ficha_progreso_arte.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                </VerticalStackLayout>
+
+                <Image Source="fichasGenerales/ficha_bocaabajo.png" HeightRequest="45" WidthRequest="70" Aspect="AspectFit" Margin="-18"/>
+
+                <ImageButton Source="cartasGenerales/carta_bocaabajo.png"
+                 HeightRequest="120"
+                 WidthRequest="80" 
+                 Aspect="AspectFit"
+                 Clicked="Button_Clicked"/>
+
+                <ImageButton x:Name="DiscardCard"
+                     Source="cartasGenerales/puntos_victoria_tres.png"
+                     HeightRequest="120"
+                     WidthRequest="85" 
+                     Aspect="AspectFit"
+                     Opacity="100"
+                     InputTransparent="True"/> <!--uso opacity porque si no reajusta la carta izq-->
+
+                <VerticalStackLayout Spacing="5" VerticalOptions="Center">
+                    <Image Source="fichasGenerales/ficha_conflicto_guerra.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                    <Image Source="fichasGenerales/ficha_conflicto_paz.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                    <Image Source="fichasGenerales/ficha_conflicto_paz.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                </VerticalStackLayout>
+
+            </HorizontalStackLayout>
+
+            <!--baraja izq-->
+            <ImageButton Grid.Row="1"
+                         Grid.Column="0"
+                         Source="cartasGenerales/puntos_victoria_dos.png"
+                         HeightRequest="120"
+                         Aspect="AspectFit"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Start"
+                         Clicked="Button_Clicked"/>
+
+            <!--baraja der-->
+            <ImageButton Grid.Row="1"
+                         Grid.Column="2"
+                         Source="cartasGenerales/recurso_oro.png"
+                         HeightRequest="120"
+                         Aspect="AspectFit"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Start"
+                         Clicked="Button_Clicked"/>
+            
+            
+            <!--aqui mas -->
+            <Grid Grid.Row="1" 
+                  Grid.ColumnSpan="3" 
+                  ColumnDefinitions="*,*,*"
+                  VerticalOptions="End" 
+                  Margin="0,0,0,-15">
+                <Image Grid.Column="0" 
+                       Source="fichasGenerales/fichas_progreso.png" 
+                       HeightRequest="110" 
+                       HorizontalOptions="Center"/>
+    
+                <Image Grid.Column="1" 
+                       Source="fichasGenerales/carta_gato.png" 
+                       HeightRequest="90" 
+                       HorizontalOptions="Center"/>
+
+                <Image Grid.Column="2" 
+                       Source="fichasGenerales/fichas_guerra.png" 
+                       HeightRequest="90" 
+                       HorizontalOptions="Center"/>
+            </Grid>
+            <!--bloque maravilla-->
+            <VerticalStackLayout Grid.Row="2"
+                                 Grid.Column="1"
+                                 Spacing="10"
+                                 HorizontalOptions="Center"
+                                 Margin="0,25,0,20">
+
+                <Image x:Name="Part5Relic" Source="guiza/maravilla/guiza4a.png" WidthRequest="60"  Aspect="AspectFit"/>
+                <Image x:Name="Part4Relic" Source="guiza/maravilla/guiza3a.png" WidthRequest="105" Aspect="AspectFit"/>
+                <Image x:Name="Part3Relic" Source="guiza/maravilla/guiza2a.png" WidthRequest="155" Aspect="AspectFit"/>
+                <Image x:Name="Part2Relic" Source="guiza/maravilla/guiza1a.png" WidthRequest="205" Aspect="AspectFit"/>
+                <Image x:Name="Part1Relic" Source="guiza/maravilla/guiza0a.png" WidthRequest="250" Aspect="AspectFit"/>
+
+
+            <Button Text="mazoPropio"
+                Grid.Row="2"
+                Grid.ColumnSpan="3"
+                VerticalOptions="End"
+                Clicked="ButtonShowPlayerDeck" />
+
+                <!--    
+                Clicked="OnBotonProbarClick" />
+                -->
+            </VerticalStackLayout>
+        </Grid>
+    </Grid>
+</ContentPage>

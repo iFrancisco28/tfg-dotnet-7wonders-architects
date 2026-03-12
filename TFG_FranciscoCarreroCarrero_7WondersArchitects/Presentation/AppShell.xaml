@@ -3,13 +3,13 @@
     x:Class="TFG_FranciscoCarreroCarrero_7WondersArchitects.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:TFG_FranciscoCarreroCarrero_7WondersArchitects"
+    xmlns:local="clr-namespace:TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation"
     Title="TFG_FranciscoCarreroCarrero_7WondersArchitects">
 
     <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage"
+        Title="Login"
+        ContentTemplate="{DataTemplate local:LoginPage}"
+        Route="LoginPage"
         Shell.NavBarIsVisible="False"/>
 
 </Shell>
