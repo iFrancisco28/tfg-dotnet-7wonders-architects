@@ -15,9 +15,9 @@
                              HorizontalOptions="Center"
                              WidthRequest="350">
 
-            <Label Text="7 Wonders Architects" 
-                   FontSize="44" 
-                   FontAttributes="Bold" 
+            <Label Text="7 Wonders Architects"
+                   FontSize="44"
+                   FontAttributes="Bold"
                    FontFamily="serif"
                    Margin="0,0,0,100"
                    HorizontalTextAlignment="Center" 
@@ -48,13 +48,14 @@
 
             <Button Text="Jugar partida"
                     BackgroundColor="#C5A059"
-                    TextColor="#FCE6C1"
+                    TextColor="Black"
                     Clicked="Redirect" 
                     CornerRadius="8"
                     Margin="0,10,0,0"/>
         </VerticalStackLayout>
 
         <Button Text="❔"
+                Clicked="Show_Help" 
                 BackgroundColor="#121212"
                 CornerRadius="25"
                 WidthRequest="5"

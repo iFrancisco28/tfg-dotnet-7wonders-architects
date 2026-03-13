@@ -3,4 +3,13 @@
 	<application android:allowBackup="true" android:icon="@mipmap/app_icon_7wonders_architects" android:roundIcon="@mipmap/app_icon_7wonders_architects_round" android:supportsRtl="true" android:usesCleartextTraffic="true"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
+
+	<queries>
+		<intent>
+			<action android:name="android.intent.action.VIEW" />
+			<category android:name="android.intent.category.BROWSABLE" />
+			<data android:scheme="https" />
+		</intent>
+	</queries>
+	
 </manifest>

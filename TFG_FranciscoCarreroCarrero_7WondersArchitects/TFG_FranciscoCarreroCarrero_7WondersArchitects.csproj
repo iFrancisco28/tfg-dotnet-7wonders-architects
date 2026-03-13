@@ -82,6 +82,12 @@
 	  <Compile Update="Presentation\GameBoardPage.xaml.cs">
 	    <DependentUpon>GameBoardPage.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="Presentation\StartGamePopup.xaml.cs">
+	    <DependentUpon>StartGamePopup.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Presentation\HelpPopup.xaml.cs">
+	    <DependentUpon>HelpPopup.xaml</DependentUpon>
+	  </Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -115,7 +121,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Presentation\StartGamePopup.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Presentation\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Presentation\HelpPopup.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Presentation\PlayerDeckPopup.xaml">

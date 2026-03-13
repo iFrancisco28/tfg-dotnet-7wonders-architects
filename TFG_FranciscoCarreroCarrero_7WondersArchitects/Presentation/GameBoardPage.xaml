@@ -35,7 +35,7 @@
                  Clicked="Button_Clicked"/>
 
                 <ImageButton x:Name="DiscardCard"
-                     Source="cartasGenerales/puntos_victoria_tres.png"
+                     Source="cartasGenerales/puntos_victoria_tres.png" 
                      HeightRequest="120"
                      WidthRequest="85" 
                      Aspect="AspectFit"
