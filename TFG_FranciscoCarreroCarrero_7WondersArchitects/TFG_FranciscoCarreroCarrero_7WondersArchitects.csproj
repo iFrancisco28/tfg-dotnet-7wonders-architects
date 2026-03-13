@@ -55,7 +55,7 @@
 		<MauiIcon Include="Resources\AppIcon\app_icon_7wonders_architects.svg" Color="#FFFFFF" />
 		
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash_7wonders_architects.svg" Color="#FFFFFF" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash_7wonders_architects.svg" Color="#3074B8" BaseSize="128,128" />
 		
 		<!-- Images (incluye subcarpetas) -->
 		<MauiImage Include="Resources\Images\**\*" />
