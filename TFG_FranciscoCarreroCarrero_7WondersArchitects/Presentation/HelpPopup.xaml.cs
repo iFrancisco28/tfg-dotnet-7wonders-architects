@@ -1,6 +1,7 @@
 using CommunityToolkit.Maui.Views;
 using Microsoft.Maui.Controls;
 using TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities;
+using System;
 
 namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation;
 
@@ -16,7 +17,8 @@ public partial class HelpPopup : Popup {
 
             await Browser.Default.OpenAsync(url, BrowserLaunchMode.SystemPreferred);
         } catch (Exception) {
-            await Application.Current.MainPage.DisplayAlert("Aviso", "No se pudo abrir la pagina web", "Ok");
+            //en caso de no poder abrir busco en la aplicacion actual, en la primera ventana, en la primera pagina y muestro 
+            await Application.Current!.Windows[0].Page!.DisplayAlert("Aviso", "No se pudo abrir la pagina web", "Ok");
         }
     }
 
@@ -26,7 +28,7 @@ public partial class HelpPopup : Popup {
 
             await Browser.Default.OpenAsync(url, BrowserLaunchMode.SystemPreferred);
         } catch (Exception) {
-            await Application.Current.MainPage.DisplayAlert("Aviso", "No se pudo abrir la pagina web", "Ok");
+            await Application.Current!.Windows[0].Page!.DisplayAlert("Aviso", "No se pudo abrir la pagina web", "Ok");
         }
     }
 
