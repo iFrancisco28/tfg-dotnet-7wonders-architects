@@ -26,10 +26,14 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
 
         public int Id { get; }
         public Type TokenType { get; }
+        public string Description { get; }
 
-        public ProgressToken(int id, Type tokenType) {
+
+
+        public ProgressToken(int id, Type tokenType, string description) {
             Id = id;
             TokenType = tokenType;
+            Description = description;
         }
     }
 
