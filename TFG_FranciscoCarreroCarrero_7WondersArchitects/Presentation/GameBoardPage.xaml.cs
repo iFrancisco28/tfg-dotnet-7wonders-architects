@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Maui.Extensions;
 using TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities;
 using TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation;
-//using Windows.Networking.Connectivity;
 using TFG_FranciscoCarreroCarrero_7WondersArchitects.Services;
 using static Microsoft.Maui.ApplicationModel.Permissions;
 
@@ -13,12 +12,37 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         List<Card> mazoMano= new List<Card>();
         private readonly SignalRService _signalRService;
 
-        public GameBoardPage()
+        public GameBoardPage(SignalRService signalRService)
         {
             InitializeComponent();
             PreparacionCartas();
-            _signalRService = new SignalRService();
+            _signalRService = signalRService;
+
+            _signalRService.OnMessageReceived += MostrarAviso;
         }
+
+        //avisador multijugador
+        private void MostrarAviso(string user, string message) {
+            //es el mainthread el que toca la ui
+            MainThread.BeginInvokeOnMainThread(async () => {
+                // Lanzamos el diálogo simple y ya está
+                await this.DisplayAlert($"Aviso de {user}", message, "Genial");
+            });
+        }
+
+        /*
+        para desuscribirnos del evento, al unirse una persona
+
+        protected override void OnDisappearing() {
+            base.OnDisappearing();
+            // Nos desuscribimos al salir para evitar errores
+            _signalRService.OnMessageReceived -= MostrarAviso;
+        }
+            
+         */
+
+
+
         //lo hago aqui de momento, pero luego se hara en la capa de dominio
         private int etapaConstruccion = 0;
         
@@ -196,8 +220,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         }
 
 
-
-
+       
 
     }
 }

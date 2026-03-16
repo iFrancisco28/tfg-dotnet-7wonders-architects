@@ -48,6 +48,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
             Part5IsBuilt = false;
         }
 
+        //redundante por codigo en gameboard, a discutir cual dejo
         public void BuildPart(int partNumber) {
             switch (partNumber) {
                 case 1: Part1IsBuilt = true; break;
