@@ -79,15 +79,15 @@
 
         <Grid x:Name="GridWarCards" IsVisible="False" RowDefinitions="Auto" ColumnDefinitions="*, *, *" ColumnSpacing="10">
             <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
-                <Image Source="guerra0cuernos.png" HeightRequest="140" WidthRequest="120"/>
+                <Image Source="guerra_cuernos_cero.png" HeightRequest="140" WidthRequest="120"/>
                 <Label x:Name="Lbl0WarCard" Text="Tienes 0 cartas de Guerra sin cuernos" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="0" Grid.Column="1" HorizontalOptions="Center">
-                <Image Source="guerra1cuernos.png" HeightRequest="140" WidthRequest="120"/>
+                <Image Source="guerra_cuernos_uno.png" HeightRequest="140" WidthRequest="120"/>
                 <Label x:Name="Lbl1WarCard" Text="Tienes 0 cartas de Guerra con 1 cuerno" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
             <VerticalStackLayout Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
-                <Image Source="guerra2cuernos.png" HeightRequest="140" WidthRequest="120"/>
+                <Image Source="guerra_cuernos_dos.png" HeightRequest="140" WidthRequest="120"/>
                 <Label x:Name="Lbl2WarCard" Text="Tienes 0 cartas de Guerra con 2 cuernos" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
             </VerticalStackLayout>
         </Grid>

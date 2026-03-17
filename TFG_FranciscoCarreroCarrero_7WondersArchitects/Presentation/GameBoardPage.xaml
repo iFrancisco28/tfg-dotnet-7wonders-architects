@@ -85,15 +85,15 @@
                      Grid.Column="1"
                      Spacing="8"
                      VerticalOptions="End"
-                     Margin="0,-90,0,0"
+                     Margin="0,-110,0,20"
                      WidthRequest="380"
                      HeightRequest="380"
                      IsVisible="false">
-                <Image x:Name="AlejandriaPart4" Source="alejandria4a.png" WidthRequest="55"  Aspect="AspectFit"/>
+                <Image x:Name="AlejandriaPart4" Source="alejandria4a.png" WidthRequest="60"  Aspect="AspectFit"/>
                 <Image x:Name="AlejandriaPart3" Source="alejandria3a.png" WidthRequest="70"  Margin="0,0,0,-17" Aspect="AspectFit"/>
-                <Image x:Name="AlejandriaPart2" Source="alejandria2a.png" WidthRequest="120" Aspect="AspectFit"/>
-                <Image x:Name="AlejandriaPart1" Source="alejandria1a.png" WidthRequest="110" Margin="0,0,0,-10" Aspect="AspectFit"/>
-                <Image x:Name="AlejandriaPart0" Source="alejandria0a.png" WidthRequest="300" Aspect="AspectFit"/>
+                <Image x:Name="AlejandriaPart2" Source="alejandria2a.png" WidthRequest="130" Aspect="AspectFit"/>
+                <Image x:Name="AlejandriaPart1" Source="alejandria1a.png" WidthRequest="120" Margin="0,0,0,-10" Aspect="AspectFit"/>
+                <Image x:Name="AlejandriaPart0" Source="alejandria0a.png" WidthRequest="310" Aspect="AspectFit"/>
             </VerticalStackLayout>
 
             <!--bloque maravilla babilonia-->
@@ -115,6 +115,25 @@
                 <Image x:Name="BabiloniaPart0" Source="babilonia0a.png" WidthRequest="370" Aspect="AspectFit"/>
             </VerticalStackLayout>
 
+            <!--bloque maravilla efeso-->
+            <VerticalStackLayout x:Name="EfesoWonder" 
+                                 Grid.Row="2"
+                                 Grid.Column="1"
+                                 Spacing="7"
+                                 VerticalOptions="End"
+                                 Margin="0,-90,0,0"
+                                 WidthRequest="380"  
+                                 HeightRequest="380"
+                                 IsVisible="false">
+                <Image x:Name="EfesoPart4" Source="efeso4a.png" WidthRequest="320" Aspect="AspectFit"/>
+                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="20">
+                    <Image x:Name="EfesoPart1" Source="efeso1a.png" WidthRequest="90" Aspect="AspectFit"/>
+                    <Image x:Name="EfesoPart2" Source="efeso2a.png" WidthRequest="90" Aspect="AspectFit"/>
+                    <Image x:Name="EfesoPart3" Source="efeso3a.png" WidthRequest="90" Aspect="AspectFit"/>
+                </HorizontalStackLayout>
+                <Image x:Name="EfesoPart0" Source="efeso0a.png" WidthRequest="320" Aspect="AspectFit"/>
+            </VerticalStackLayout>
+
             <!--bloque maravilla guiza-->
             <VerticalStackLayout x:Name="GuizaWonder" 
                                  Grid.Row="2"
@@ -124,15 +143,73 @@
                                  Margin="0,-90,0,0"
                                  WidthRequest="380"  
                                  HeightRequest="380"
-                                 IsVisible="true">
-                <Image x:Name="GuizaPart4" Source="guiza4a.png" WidthRequest="100"  Aspect="AspectFit"/>
+                                 IsVisible="false">
+                <Image x:Name="GuizaPart4" Source="guiza4a.png" WidthRequest="100" Aspect="AspectFit"/>
                 <Image x:Name="GuizaPart3" Source="guiza3a.png" WidthRequest="180" Aspect="AspectFit"/>
                 <Image x:Name="GuizaPart2" Source="guiza2a.png" WidthRequest="240" Aspect="AspectFit"/>
                 <Image x:Name="GuizaPart1" Source="guiza1a.png" WidthRequest="300" Aspect="AspectFit"/>
                 <Image x:Name="GuizaPart0" Source="guiza0a.png" WidthRequest="370" Aspect="AspectFit"/>
             </VerticalStackLayout>
 
-            
+            <!--bloque maravilla halicarnaso-->
+            <VerticalStackLayout x:Name="HalicarnasoWonder" 
+                     Grid.Row="2"
+                     Grid.Column="1"
+                     Spacing="7"
+                     VerticalOptions="End"
+                     Margin="0,-95,0,5"
+                     WidthRequest="380"  
+                     HeightRequest="380"
+                     IsVisible="false">
+                <Image x:Name="HalicarnasoPart4" Source="halicarnaso4a.png" WidthRequest="200" Aspect="AspectFit"/>
+                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="20" Margin="0,-3,0,-15">
+                    <Image x:Name="HalicarnasoPart3" Source="halicarnaso3a.png" WidthRequest="110" Aspect="AspectFit"/>
+                    <Image x:Name="HalicarnasoPart2" Source="halicarnaso2a.png" WidthRequest="108" Aspect="AspectFit"/>
+                </HorizontalStackLayout>
+                <Image x:Name="HalicarnasoPart1" Source="halicarnaso1a.png" WidthRequest="250" Aspect="AspectFit"/>
+                <Image x:Name="HalicarnasoPart0" Source="halicarnaso0a.png" WidthRequest="270" Aspect="AspectFit"/>
+            </VerticalStackLayout>
+
+            <!--bloque maravilla halicarnaso-->
+            <VerticalStackLayout x:Name="OlimpiaWonder" 
+                                 Grid.Row="2"
+                                 Grid.Column="1"
+                                 Spacing="5"
+                                 VerticalOptions="End"
+                                 Margin="0,-110,0,20"
+                                 WidthRequest="380"  
+                                 HeightRequest="380"
+                                 IsVisible="true">
+                <Image x:Name="OlimpiaPart4" Source="olimpia4a.png" WidthRequest="250" Aspect="AspectFit" Margin="2,0,0,-25"/>
+                <Image x:Name="OlimpiaPart3" Source="olimpia3a.png" WidthRequest="270" Aspect="AspectFit"/>
+                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="0">
+                    <Image x:Name="OlimpiaPart1" Source="olimpia1a.png" WidthRequest="120" Aspect="AspectFit"/>
+                    <Image x:Name="OlimpiaPart2" Source="olimpia2a.png" WidthRequest="118" Aspect="AspectFit"/>
+                </HorizontalStackLayout>
+                <Image x:Name="OlimpiaPart0" Source="olimpia0a.png" WidthRequest="290" Aspect="AspectFit"/>
+            </VerticalStackLayout>
+
+            <!--bloque maravilla rodas-->
+            <VerticalStackLayout x:Name="RodasWonder" 
+                                 Grid.Row="2"
+                                 Grid.Column="1"
+                                 Spacing="4"
+                                 VerticalOptions="End"
+                                 Margin="0,-95,0,5"
+                                 WidthRequest="380"  
+                                 HeightRequest="380"
+                                 IsVisible="false">
+                <Image x:Name="RodasPart4" Source="rodas4a.png" WidthRequest="160" Aspect="AspectFit"/>
+                <Image x:Name="RodasPart3" Source="rodas3a.png" WidthRequest="160" Aspect="AspectFit"/>
+                <Image x:Name="RodasPart2" Source="rodas2a.png" WidthRequest="160" Aspect="AspectFit"/>
+                <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="20">
+                    <Image x:Name="RodasPart1" Source="rodas1a.png" WidthRequest="130" Aspect="AspectFit"/>
+                    <Image x:Name="RodasPart0" Source="rodas0a.png" WidthRequest="120" Aspect="AspectFit"/>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+
+
 
             <!--bloque boton cartas-->
             <HorizontalStackLayout Grid.Row="3"
