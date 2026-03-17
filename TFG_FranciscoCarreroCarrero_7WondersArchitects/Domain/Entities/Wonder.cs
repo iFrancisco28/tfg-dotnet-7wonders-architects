@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
 {
-    public sealed class Relic {
+    public sealed class Wonder {
         public int Id { get; }
         public string Name { get; }
 
@@ -25,7 +25,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
         public int Part5BuiltPoints { get; private set; }
         public bool Part5IsBuilt { get; private set; }
 
-        public Relic(
+        public Wonder(
             int id,
             string name,
             int part1Points,

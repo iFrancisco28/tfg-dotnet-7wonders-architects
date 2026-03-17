@@ -27,6 +27,7 @@
                     StrokeShape="RoundRectangle 8" 
                     HeightRequest="50">
                 <Entry Placeholder="Introduce tu nombre" 
+                       x:Name="NameEntry"
                        BackgroundColor="Transparent" 
                        HorizontalTextAlignment="Center"
                        VerticalOptions="Center" />
@@ -35,13 +36,18 @@
             <Border BackgroundColor="#F0F0F0" 
                     StrokeShape="RoundRectangle 8"
                     HeightRequest="50">
-                <Picker x:Name="OpcionesPicker" 
+                <Picker x:Name="WonderPicker" 
                         Title="Selecciona una maravilla"
                         HorizontalTextAlignment="Center"
                         VerticalOptions="Center">
                     <Picker.Items>
-                        <x:String>Guiza</x:String>
                         <x:String>Alejandría</x:String>
+                        <x:String>Babilonia</x:String>
+                        <x:String>Éfeso</x:String>
+                        <x:String>Guiza</x:String>
+                        <x:String>Halicarnaso</x:String>
+                        <x:String>Olimpia</x:String>
+                        <x:String>Rodas</x:String>
                     </Picker.Items>
                 </Picker>
             </Border>

@@ -11,6 +11,15 @@ public partial class LoginPage : ContentPage {
     }
 
 	private void Redirect(object sender, EventArgs e) {
+        if (string.IsNullOrEmpty(NameEntry.Text)) {
+            DisplayAlert("Error", "Por favor, introduzca un nombre.", "Ok");
+            return;
+        }
+        if (WonderPicker.SelectedIndex == -1) {
+            DisplayAlert("Error", "Por favor, seleccione una maravilla.", "Ok");
+            return;
+        }
+
         var popup = new StartGamePopup(_signalRService);
         this.ShowPopup(popup);
     }
