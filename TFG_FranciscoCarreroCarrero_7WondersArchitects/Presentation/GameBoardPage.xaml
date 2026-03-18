@@ -143,7 +143,7 @@
                                  Margin="0,-90,0,0"
                                  WidthRequest="380"  
                                  HeightRequest="380"
-                                 IsVisible="false">
+                                 IsVisible="true">
                 <Image x:Name="GuizaPart4" Source="guiza4a.png" WidthRequest="100" Aspect="AspectFit"/>
                 <Image x:Name="GuizaPart3" Source="guiza3a.png" WidthRequest="180" Aspect="AspectFit"/>
                 <Image x:Name="GuizaPart2" Source="guiza2a.png" WidthRequest="240" Aspect="AspectFit"/>
@@ -179,7 +179,7 @@
                                  Margin="0,-110,0,20"
                                  WidthRequest="380"  
                                  HeightRequest="380"
-                                 IsVisible="true">
+                                 IsVisible="false">
                 <Image x:Name="OlimpiaPart4" Source="olimpia4a.png" WidthRequest="250" Aspect="AspectFit" Margin="2,0,0,-25"/>
                 <Image x:Name="OlimpiaPart3" Source="olimpia3a.png" WidthRequest="270" Aspect="AspectFit"/>
                 <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="0">

@@ -155,23 +155,23 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             if (puedeConstruir) {
                 switch (etapaConstruccion) {
                     case 0:
-                        GuizaPart0.Source = "guiza/maravilla/guiza0b.png";
+                        GuizaPart0.Source = "guiza0b.png";
                         borrarCartas(2, true, recursoMayor);
                         break;
                     case 1:
-                        GuizaPart1.Source = "guiza/maravilla/guiza1b.png";
+                        GuizaPart1.Source = "guiza1b.png";
                         borrarCartas(2, false, recursoMayor);
                         break;
                     case 2:
-                        GuizaPart2.Source = "guiza/maravilla/guiza2b.png";
+                        GuizaPart2.Source = "guiza2b.png";
                         borrarCartas(3, true, recursoMayor);
                         break;
                     case 3:
-                        GuizaPart3.Source = "guiza/maravilla/guiza3b.png";
+                        GuizaPart3.Source = "guiza3b.png";
                         borrarCartas(3, false, recursoMayor);
                         break;
                     case 4:
-                        GuizaPart4.Source = "guiza/maravilla/guiza4b.png";
+                        GuizaPart4.Source = "guiza4b.png";
                         borrarCartas(4, true, recursoMayor);
                         break;
                 }

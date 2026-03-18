@@ -5,10 +5,14 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation;
 
 public partial class StartGamePopup : Popup {
     private readonly SignalRService _signalRService;
-    public StartGamePopup(SignalRService signalRService)
+    private readonly string _playerName;
+    private readonly string _playerWonder;
+    public StartGamePopup(SignalRService signalRService, string playerName, string playerWonder)
 	{
 		InitializeComponent();
         _signalRService = signalRService;
+        _playerName = playerName;
+        _playerWonder = playerWonder;
     }
 
 
@@ -17,11 +21,12 @@ public partial class StartGamePopup : Popup {
             await _signalRService.ConnectAsync();
 
             // Creamos la sala
-            string roomCode = await _signalRService.CreateRoomAsync();
+            string roomCode = await _signalRService.CreateRoomAsync(_playerName, _playerWonder);
 
 
             await Shell.Current.DisplayAlert("¡Sala Creada!", $"Tu código de sala es: {roomCode}\n\n¡Pásaselo a tus amigos para que se unan!", "Ok");
             await Shell.Current.GoToAsync("GameBoardPage");
+
 
         } catch (Exception ex) {
             await Shell.Current.DisplayAlert("Error", "No se pudo conectar: " + ex.Message, "Ok");
@@ -39,14 +44,15 @@ public partial class StartGamePopup : Popup {
                 await _signalRService.ConnectAsync();
 
                 //nos intentamos unir a la sala
-                bool seHaUnido = await _signalRService.JoinRoomAsync(roomCode);
+                string resultado = await _signalRService.JoinRoomAsync(roomCode, _playerName, _playerWonder);
 
                 //la respuesta del servidor dice si la sala existe o no
-                if (seHaUnido) {
-
+                if (resultado == "OK") {
                     await Shell.Current.GoToAsync("GameBoardPage");
-                } else {
-                    //no hacemos el GoToAsync.
+                } else if (resultado == "WONDER_TAKEN") {
+                    await Shell.Current.DisplayAlert("Maravilla ocupada", "El anfitrion ya ha escogido esa maravilla. Por favor escoge otra.", "Ok");
+                } else { 
+                    //no hacemos el GoToAsync
                     await Shell.Current.DisplayAlert("Error", "Esa sala no existe o el código es incorrecto. Vuelve a intentarlo.", "Ok");
                 }
 

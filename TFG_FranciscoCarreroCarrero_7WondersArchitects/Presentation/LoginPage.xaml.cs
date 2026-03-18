@@ -20,7 +20,10 @@ public partial class LoginPage : ContentPage {
             return;
         }
 
-        var popup = new StartGamePopup(_signalRService);
+        string playerName = NameEntry.Text;
+        string selectedWonder = WonderPicker.SelectedItem.ToString();
+
+        var popup = new StartGamePopup(_signalRService, playerName, selectedWonder);
         this.ShowPopup(popup);
     }
 

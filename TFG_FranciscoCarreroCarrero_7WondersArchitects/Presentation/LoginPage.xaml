@@ -41,9 +41,9 @@
                         HorizontalTextAlignment="Center"
                         VerticalOptions="Center">
                     <Picker.Items>
-                        <x:String>Alejandría</x:String>
+                        <x:String>Alejandria</x:String>
                         <x:String>Babilonia</x:String>
-                        <x:String>Éfeso</x:String>
+                        <x:String>Efeso</x:String>
                         <x:String>Guiza</x:String>
                         <x:String>Halicarnaso</x:String>
                         <x:String>Olimpia</x:String>

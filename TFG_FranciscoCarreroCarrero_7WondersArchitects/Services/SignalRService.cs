@@ -39,15 +39,15 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Services {
         }
 
         //metodo para crear una sala (Host) y recibir el código generado
-        public async Task<string> CreateRoomAsync() {
+        public async Task<string> CreateRoomAsync(string hostName, string hostWonder) {
             //llama al método "CreateRoom" del servidor y le devuelve el codigo de sala
-            return await _connection.InvokeAsync<string>("CreateRoom");
+            return await _connection.InvokeAsync<string>("CreateRoom", hostName, hostWonder);
         }
 
         //metodo para unirse a la sala
-        public async Task<bool> JoinRoomAsync(string roomCode) {
+        public async Task<string> JoinRoomAsync(string roomCode, string guestName, string guestWonder) {
             //llama al método "JoinRoom" del servidor y le devuelve si la sala existe o no
-            return await _connection.InvokeAsync<bool>("JoinRoom", roomCode);
+            return await _connection.InvokeAsync<string>("JoinRoom", roomCode, guestName, guestWonder);
         }
 
         //mensaje a todos los jugadores de x sala 
