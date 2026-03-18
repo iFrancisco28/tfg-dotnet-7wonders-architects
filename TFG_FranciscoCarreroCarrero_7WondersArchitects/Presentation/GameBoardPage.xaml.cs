@@ -40,68 +40,59 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
          */
 
         private void PrepararTablero(string maravillaJugador) {
-            switch (maravillaJugador) {
-                case "Guiza":
-                    GuizaWonder.IsVisible = true;
-                    
-                    break;
-                case "Alejandria":
-                    AlejandriaWonder.IsVisible = true;
-                    
-                    break;
-                case "Babilonia":
-                    BabiloniaWonder.IsVisible = true;
-                    
-                    break;
-                case "Efeso":
-                    EfesoWonder.IsVisible = true;
-                    
-                    break;
-                case "Halicarnaso":
-                    HalicarnasoWonder.IsVisible = true;
-                    
-                    break;
-                case "Olimpia":
-                    OlimpiaWonder.IsVisible = true;
-                    
-                    break;
-                case "Rodas":
-                    RodasWonder.IsVisible = true;
-                    
-                    break;
-            }
+            string nombreElementoVertical = $"{maravillaJugador}Wonder";
+
+            var elementoVertical = (VisualElement)this.FindByName(nombreElementoVertical);
+
+            elementoVertical.IsVisible = true;
         }
 
         private void ActualizarImagenesMaravilla(int etapa) {
-            switch (etapa) {
-                case 1: GuizaPart0.Source = "guiza0b.png"; break;
-                case 2: GuizaPart1.Source = "guiza1b.png"; break;
-                case 3: GuizaPart2.Source = "guiza2b.png"; break;
-                case 4: GuizaPart3.Source = "guiza3b.png"; break;
-                case 5: GuizaPart4.Source = "guiza4b.png"; break;
-            }
+            string nombreMaravilla = _gameManager.State.LocalPlayer.PlayerWonder.ToString();
+
+            string idElementoImage = $"{nombreMaravilla}Part{etapa - 1}";
+
+            string nombreImagenNueva = $"{nombreMaravilla.ToLower()}{etapa - 1}b.png";
+
+            var elementoImage = (Image)this.FindByName(idElementoImage);
+
+            elementoImage.Source = nombreImagenNueva;
         }
 
 
 
 
 
-        private void Button_Clicked(object sender, EventArgs e) {
-            //robamos
+        private void GetMainDeckCard(object sender, EventArgs e) {
             Card cartaRobada = _gameManager.RobarCartaMazoPrincipal();
+            ProcesarRoboYConstruccion(cartaRobada);
+        }
 
+        private void GetLocalWonderDeckCard(object sender, EventArgs e) {
+            Card cartaRobada = _gameManager.RobarCartaMazoMaravilla();
+            ProcesarRoboYConstruccion(cartaRobada);
+        }
+
+        private void GetRemoteWonderDeckCard(object sender, EventArgs e) {
+            Card cartaRobada = _gameManager.RobarCartaMazoMaravilla();
+            ProcesarRoboYConstruccion(cartaRobada);
+        }
+
+
+        private void ProcesarRoboYConstruccion(Card cartaRobada) {
             if (cartaRobada != null) {
                 DisplayAlert("Has robado", cartaRobada.ToString(), "OK");
+            } else {
+                DisplayAlert("Aviso", "Este mazo está vacío.", "OK");
+                return; // Si no hay carta, no comprobamos nada más
             }
-            
-            //comprobamos
+
             bool seHaConstruidoAlgo = _gameManager.ComprobarConstruccion();
 
-            //si es correcto, construimos
             if (seHaConstruidoAlgo) {
                 int etapaRecienCompletada = _gameManager.State.LocalPlayer.EtapaConstruccion;
                 ActualizarImagenesMaravilla(etapaRecienCompletada);
-                DisplayAlert("Nueva etapa!", $"Has completado la parte {etapaRecienCompletada} de Guiza", "Ok");
+                DisplayAlert("Nueva etapa!", $"Has completado la parte {etapaRecienCompletada} de tu maravilla", "Ok");
             }
         }
 

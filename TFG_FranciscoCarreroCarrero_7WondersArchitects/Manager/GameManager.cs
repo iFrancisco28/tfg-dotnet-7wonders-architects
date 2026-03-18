@@ -28,6 +28,14 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             return State.LocalPlayer.HandDeck.Last();
         }
 
+        public Card RobarCartaMazoMaravilla() {
+            if (State.LocalPlayer.WonderDeck.Count == 0) return null;
+
+            State.LocalPlayer.HandDeck.Add(State.LocalPlayer.WonderDeck[0]);
+            State.LocalPlayer.WonderDeck.RemoveAt(0);
+            return State.LocalPlayer.HandDeck.Last();
+        }
+
         public bool ComprobarConstruccion() {
             if (State.LocalPlayer.EtapaConstruccion > 4) return false;
 

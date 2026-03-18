@@ -29,9 +29,12 @@ public partial class StartGamePopup : Popup {
             //hacemos esto para pasar argumentos sin romper la Inyeccion de MauiProgram (tiene el signalRService como singleton)
             var servicios = this.Handler!.MauiContext!.Services;
             var gameBoard = ActivatorUtilities.CreateInstance<GameBoardPage>(servicios, _playerName, _playerWonder);
+
+            //para cerrar el popup tras entrar al tablero
+            await this.CloseAsync();
+
             await Shell.Current.Navigation.PushAsync(gameBoard);
 
-            await this.CloseAsync();
 
         } catch (Exception ex) {
             await Shell.Current.DisplayAlert("Error", "No se pudo conectar: " + ex.Message, "Ok");
@@ -56,6 +59,10 @@ public partial class StartGamePopup : Popup {
                     //hacemos esto para pasar argumentos sin romper la Inyeccion de MauiProgram (tiene el signalRService como singleton)
                     var servicios = this.Handler!.MauiContext!.Services;
                     var gameBoard = ActivatorUtilities.CreateInstance<GameBoardPage>(servicios, _playerName, _playerWonder);
+                    
+                    //para cerrar el popup tras entrar al tablero
+                    await this.CloseAsync();
+
                     await Shell.Current.Navigation.PushAsync(gameBoard);
                 } else if (resultado == "WONDER_TAKEN") {
                     await Shell.Current.DisplayAlert("Maravilla ocupada", "El anfitrion ya ha escogido esa maravilla. Por favor escoge otra.", "Ok");
