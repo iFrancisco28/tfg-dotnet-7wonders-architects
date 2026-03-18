@@ -29,48 +29,40 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
             Gear
         }
 
-        public string Id;
-        public CardType Type;
-
-        // Militar
-        public int Horns;
-
-        // Ciencia
-        public ScienceType? Science;
-
-        // Recurso
-        public ResourceType? Resource;
-
-        // Puntos de victoria
-        public int VictoryPoints;
-        public bool HasCat;
+        public string Id { get; private set; }
+        public CardType Type { get; private set; }
+        public int Horns { get; private set; }
+        public ScienceType? Science { get; private set; }
+        public ResourceType? Resource { get; private set; }
+        public int VictoryPoints { get; private set; }
+        public bool HasCat { get; private set; }
 
         //constructor carta Recurso
-        public Card(string id, CardType Cardtype, ResourceType resourceType) {
+        public Card(string id, ResourceType resourceType) {
             Id = id;
-            Type = Cardtype;
+            Type = CardType.Resource; // Se asigna automáticamente
             Resource = resourceType;
         }
 
         //constructor carta Ciencia
-        public Card(string id, CardType Cardtype, ScienceType scienceType) {
+        public Card(string id, ScienceType scienceType) {
             Id = id;
-            Type = Cardtype;
+            Type = CardType.Science; // Se asigna automáticamente
             Science = scienceType;
         }
 
         //constructor carta Puntos Victoria
-        public Card(string id, CardType Cardtype, int victoryPoints, bool hasCat) {
+        public Card(string id, int victoryPoints, bool hasCat) {
             Id = id;
-            Type = Cardtype;
+            Type = CardType.VictoryPoint; // Se asigna automáticamente
             VictoryPoints = victoryPoints;
             HasCat = hasCat;
         }
 
         //constructor carta Militar
-        public Card(string id, CardType Cardtype, int horns) {
+        public Card(string id, int horns) {
             Id = id;
-            Type = Cardtype;
+            Type = CardType.Military; // Se asigna automáticamente
             Horns = horns;
         }
 

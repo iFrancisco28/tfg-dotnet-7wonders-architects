@@ -25,7 +25,11 @@ public partial class StartGamePopup : Popup {
 
 
             await Shell.Current.DisplayAlert("¡Sala Creada!", $"Tu código de sala es: {roomCode}\n\n¡Pásaselo a tus amigos para que se unan!", "Ok");
-            await Shell.Current.GoToAsync("GameBoardPage");
+
+            //hacemos esto para pasar argumentos sin romper la Inyeccion de MauiProgram (tiene el signalRService como singleton)
+            var servicios = this.Handler!.MauiContext!.Services;
+            var gameBoard = ActivatorUtilities.CreateInstance<GameBoardPage>(servicios, _playerName, _playerWonder);
+            await Shell.Current.Navigation.PushAsync(gameBoard);
 
 
         } catch (Exception ex) {
@@ -48,7 +52,10 @@ public partial class StartGamePopup : Popup {
 
                 //la respuesta del servidor dice si la sala existe o no
                 if (resultado == "OK") {
-                    await Shell.Current.GoToAsync("GameBoardPage");
+                    //hacemos esto para pasar argumentos sin romper la Inyeccion de MauiProgram (tiene el signalRService como singleton)
+                    var servicios = this.Handler!.MauiContext!.Services;
+                    var gameBoard = ActivatorUtilities.CreateInstance<GameBoardPage>(servicios, _playerName, _playerWonder);
+                    await Shell.Current.Navigation.PushAsync(gameBoard);
                 } else if (resultado == "WONDER_TAKEN") {
                     await Shell.Current.DisplayAlert("Maravilla ocupada", "El anfitrion ya ha escogido esa maravilla. Por favor escoge otra.", "Ok");
                 } else { 
