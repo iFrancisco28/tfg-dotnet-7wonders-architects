@@ -52,10 +52,14 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
         }
 
         //constructor carta Puntos Victoria
-        public Card(string id, int victoryPoints, bool hasCat) {
+        public Card(string id, bool hasCat) {
             Id = id;
             Type = CardType.VictoryPoint; // Se asigna automáticamente
-            VictoryPoints = victoryPoints;
+            if (hasCat) {
+                VictoryPoints = 2;
+            } else {
+                VictoryPoints = 3;
+            }
             HasCat = hasCat;
         }
 

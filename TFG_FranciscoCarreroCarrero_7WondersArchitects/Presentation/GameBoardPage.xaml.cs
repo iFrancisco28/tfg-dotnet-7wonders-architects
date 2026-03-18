@@ -40,7 +40,36 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
          */
 
         private void PrepararTablero(string maravillaJugador) {
-
+            switch (maravillaJugador) {
+                case "Guiza":
+                    GuizaWonder.IsVisible = true;
+                    
+                    break;
+                case "Alejandria":
+                    AlejandriaWonder.IsVisible = true;
+                    
+                    break;
+                case "Babilonia":
+                    BabiloniaWonder.IsVisible = true;
+                    
+                    break;
+                case "Efeso":
+                    EfesoWonder.IsVisible = true;
+                    
+                    break;
+                case "Halicarnaso":
+                    HalicarnasoWonder.IsVisible = true;
+                    
+                    break;
+                case "Olimpia":
+                    OlimpiaWonder.IsVisible = true;
+                    
+                    break;
+                case "Rodas":
+                    RodasWonder.IsVisible = true;
+                    
+                    break;
+            }
         }
 
         private void ActualizarImagenesMaravilla(int etapa) {
@@ -80,6 +109,11 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
 
         //sacar popup de mazoPropio
         private void ButtonShowPlayerDeck(object sender, EventArgs e) {
+            //para probar
+            //var popup = new PlayerDeckPopup(_gameManager.State.MainDeck);
+            //var popup = new PlayerDeckPopup(_gameManager.State.LocalPlayer.WonderDeck);
+
+
             var popup = new PlayerDeckPopup(_gameManager.State.LocalPlayer.HandDeck);
             this.ShowPopup(popup);
         }

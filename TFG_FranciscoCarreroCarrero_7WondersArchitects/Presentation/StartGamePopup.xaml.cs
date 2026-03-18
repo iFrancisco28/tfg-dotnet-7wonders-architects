@@ -31,6 +31,7 @@ public partial class StartGamePopup : Popup {
             var gameBoard = ActivatorUtilities.CreateInstance<GameBoardPage>(servicios, _playerName, _playerWonder);
             await Shell.Current.Navigation.PushAsync(gameBoard);
 
+            await this.CloseAsync();
 
         } catch (Exception ex) {
             await Shell.Current.DisplayAlert("Error", "No se pudo conectar: " + ex.Message, "Ok");

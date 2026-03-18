@@ -27,6 +27,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             State.MainDeck.RemoveAt(0);
             return State.LocalPlayer.HandDeck.Last();
         }
+
         public bool ComprobarConstruccion() {
             if (State.LocalPlayer.EtapaConstruccion > 4) return false;
 
@@ -153,8 +154,8 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
 
 
             //cartas victory point
-            mazoPrincipal = AgregarCartasVictoria(mazoPrincipal, 2, true, 8, 0);   // Índices del 0 al 7
-            mazoPrincipal = AgregarCartasVictoria(mazoPrincipal, 3, false, 4, 8);  // Índices del 8 al 11
+            mazoPrincipal = AgregarCartasVictoria(mazoPrincipal, true, 8, 0);   // Índices del 0 al 7
+            mazoPrincipal = AgregarCartasVictoria(mazoPrincipal, false, 4, 8);  // Índices del 8 al 11
 
 
             var arrayMazoPrincipal = mazoPrincipal.ToArray();
@@ -165,34 +166,167 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
         }
 
         private List<Card> GenerarMazoMaravilla(Player.Wonder maravilla) {
-            List<Card> mazo = new List<Card>();
+            List<Card> mazoMaravilla = new List<Card>();
 
             switch (maravilla) {
                 case Player.Wonder.Guiza:
-                    // Rellenar...
+                    //cartas recursos
+                    foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
+                        int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 3 : (tipoRecurso == Card.ResourceType.Clay) ? 1 : 2;
+                        mazoMaravilla = AgregarCartasRecurso(mazoMaravilla, tipoRecurso, cantidad);
+                    }
+
+                    //cartas militares
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 0, 2);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 1, 2);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 2, 0);
+
+                    //cartas ciencia
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Compass, 2);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Gear, 1);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Tablet, 1);
+
+                    //cartas victory point
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, true, 3, 12);   // Índices del 0 al 7
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 2, 15);  // Índices del 8 al 11
                     break;
+
                 case Player.Wonder.Alejandria:
-                    // Rellenar...
+                    //cartas recursos
+                    foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
+                        int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 4 : (tipoRecurso == Card.ResourceType.Glass) ? 1 : 2;
+                        mazoMaravilla = AgregarCartasRecurso(mazoMaravilla, tipoRecurso, cantidad); 
+                    }
+
+                    //cartas militares
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 0, 2);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 1, 1);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 2, 1);
+
+                    //cartas ciencia
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Compass, 1);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Gear, 2);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Tablet, 1);
+
+                    //cartas victory point
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, true, 2, 12);   // Índices del 0 al 7
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 2, 15);  // Índices del 8 al 11
                     break;
+
                 case Player.Wonder.Babilonia:
-                    // Rellenar...
+                    //cartas recursos
+                    foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
+                        int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 3 : (tipoRecurso == Card.ResourceType.Stone) ? 1 : 2;
+                        mazoMaravilla = AgregarCartasRecurso(mazoMaravilla, tipoRecurso, cantidad);
+                    }
+
+                    //cartas militares
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 0, 2);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 1, 1);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 2, 1);
+
+                    //cartas ciencia
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Compass, 2);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Gear, 2);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Tablet, 1);
+
+                    //cartas victory point
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, true, 2, 12);   // Índices del 0 al 7
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 2, 15);  // Índices del 8 al 11
                     break;
+
                 case Player.Wonder.Efeso:
-                    // Rellenar...
+                    //cartas recursos
+                    foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
+                        int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 3 : 2;
+                        mazoMaravilla = AgregarCartasRecurso(mazoMaravilla, tipoRecurso, cantidad);
+                    }
+
+                    //cartas militares
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 0, 2);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 1, 1);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 2, 1);
+
+                    //cartas ciencia
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Compass, 2);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Gear, 1);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Tablet, 2);
+
+                    //cartas victory point
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, true, 2, 12);   // Índices del 0 al 7
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 1, 15);  // Índices del 8 al 11
                     break;
+
                 case Player.Wonder.Halicarnaso:
-                    // Rellenar...
+                    //cartas recursos
+                    foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
+                        int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 3 : (tipoRecurso == Card.ResourceType.Papyrus) ? 1 : 2;
+                        mazoMaravilla = AgregarCartasRecurso(mazoMaravilla, tipoRecurso, cantidad);
+                    }
+
+                    //cartas militares
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 0, 2);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 1, 2);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 2, 1);
+
+                    //cartas ciencia
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Compass, 1);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Gear, 1);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Tablet, 2);
+
+                    //cartas victory point
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, true, 2, 12);   // Índices del 0 al 7
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 2, 15);  // Índices del 8 al 11
                     break;
+
                 case Player.Wonder.Olimpia:
-                    // Rellenar...
+                    //cartas recursos
+                    foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
+                        int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 3 : (tipoRecurso == Card.ResourceType.Wood) ? 1 : 2;
+                        mazoMaravilla = AgregarCartasRecurso(mazoMaravilla, tipoRecurso, cantidad);
+                    }
+
+                    //cartas militares
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 0, 2);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 1, 2);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 2, 1);
+
+                    //cartas ciencia
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Compass, 1);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Gear, 1);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Tablet, 2);
+
+                    //cartas victory point
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, true, 3, 12);   // Índices del 0 al 7
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 1, 15);  // Índices del 8 al 11
                     break;
+
+
                 case Player.Wonder.Rodas:
-                    // Rellenar...
+                    //cartas recursos
+                    foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
+                        int cantidad = 2;
+                        mazoMaravilla = AgregarCartasRecurso(mazoMaravilla, tipoRecurso, cantidad);
+                    }
+
+                    //cartas militares
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 0, 2);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 1, 2);
+                    mazoMaravilla = AgregarCartasMilitares(mazoMaravilla, 2, 1);
+
+                    //cartas ciencia
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Compass, 1);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Gear, 2);
+                    mazoMaravilla = AgregarCartasCiencia(mazoMaravilla, Card.ScienceType.Tablet, 1);
+
+                    //cartas victory point
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, true, 2, 12);   // Índices del 0 al 7
+                    mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 2, 15);  // Índices del 8 al 11
                     break;
             }
 
             // Barajamos el mazo de la maravilla
-            var arrayMazo = mazo.ToArray();
+            var arrayMazo = mazoMaravilla.ToArray();
             Random.Shared.Shuffle(arrayMazo);
             return arrayMazo.ToList();
         }
@@ -222,10 +356,10 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
         }
 
         //cartas victory point
-        private List<Card> AgregarCartasVictoria(List<Card> deck, int victoryPoints, bool hasCat, int cantidad, int indiceInicio = 0) {
+        private List<Card> AgregarCartasVictoria(List<Card> deck, bool hasCat, int cantidad, int indiceInicio = 0) {
             for (int i = 0; i < cantidad; i++) {
                 int indiceActual = indiceInicio + i;
-                deck.Add(new Card("MazoPrincipal_VictoryPoint" + indiceActual, victoryPoints, hasCat));
+                deck.Add(new Card("MazoPrincipal_VictoryPoint" + indiceActual, hasCat));
             }
             return deck;
 
