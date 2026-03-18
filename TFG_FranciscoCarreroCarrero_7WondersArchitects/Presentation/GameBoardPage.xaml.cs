@@ -42,14 +42,12 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         private void PrepararTablero(string maravillaJugador) {
             string nombreElementoVertical = $"{maravillaJugador}Wonder";
 
-            var elementoVertical = (VisualElement)this.FindByName(nombreElementoVertical);
+            var elementoVertical = (VerticalStackLayout)this.FindByName(nombreElementoVertical);
 
             elementoVertical.IsVisible = true;
         }
 
-        private void ActualizarImagenesMaravilla(int etapa) {
-            string nombreMaravilla = _gameManager.State.LocalPlayer.PlayerWonder.ToString();
-
+        private void ActualizarImagenesMaravilla(int etapa, string nombreMaravilla) {
             string idElementoImage = $"{nombreMaravilla}Part{etapa - 1}";
 
             string nombreImagenNueva = $"{nombreMaravilla.ToLower()}{etapa - 1}b.png";
@@ -84,14 +82,15 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
                 DisplayAlert("Has robado", cartaRobada.ToString(), "OK");
             } else {
                 DisplayAlert("Aviso", "Este mazo está vacío.", "OK");
-                return; // Si no hay carta, no comprobamos nada más
+                return; 
             }
 
             bool seHaConstruidoAlgo = _gameManager.ComprobarConstruccion();
 
             if (seHaConstruidoAlgo) {
-                int etapaRecienCompletada = _gameManager.State.LocalPlayer.EtapaConstruccion;
-                ActualizarImagenesMaravilla(etapaRecienCompletada);
+                int etapaRecienCompletada = _gameManager.EtapaActual;
+                string nombreMaravilla = _gameManager.MaravillaJugador.ToString();
+                ActualizarImagenesMaravilla(etapaRecienCompletada, nombreMaravilla);
                 DisplayAlert("Nueva etapa!", $"Has completado la parte {etapaRecienCompletada} de tu maravilla", "Ok");
             }
         }
@@ -104,8 +103,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             //var popup = new PlayerDeckPopup(_gameManager.State.MainDeck);
             //var popup = new PlayerDeckPopup(_gameManager.State.LocalPlayer.WonderDeck);
 
-
-            var popup = new PlayerDeckPopup(_gameManager.State.LocalPlayer.HandDeck);
+            var popup = new PlayerDeckPopup(_gameManager.ManoJugador);
             this.ShowPopup(popup);
         }
 

@@ -3,49 +3,58 @@ using TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities;
 
 namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
     public class GameManager {
-        public GameState State { get; private set; }
+        private GameState _state;
+
+        public int EtapaActual => _state.LocalPlayer.EtapaConstruccion;
+        public string NombreJugador => _state.LocalPlayer.Name;
+        public Player.Wonder MaravillaJugador => _state.LocalPlayer.PlayerWonder;
+        public int CartasMazoCentral => _state.MainDeck.Count;
+        public int CartasLocalMazoMaravilla => _state.LocalPlayer.WonderDeck.Count;
+        public int CartasRivalMazoMaravilla => _state.LocalPlayer.WonderDeck.Count;
+        public List<Card> ManoJugador => _state.LocalPlayer.HandDeck;
+
 
         public GameManager(string localPlayerName, string localPlayerWonderString) {
-            State = new GameState();
+            _state = new GameState();
 
             // 1. Parseamos la maravilla y creamos al jugador local
             if (Enum.TryParse(localPlayerWonderString, out Player.Wonder maravillaEnum)) {
-                State.LocalPlayer = new Player(localPlayerName, maravillaEnum);
+                _state.LocalPlayer = new Player(localPlayerName, maravillaEnum);
             }
 
             // 2. Preparamos el mazo central (tu código original)
-            State.MainDeck = PreparacionCartas();
+            _state.MainDeck = PreparacionCartas();
 
             // 3. Preparamos el mazo específico de la maravilla del jugador
-            State.LocalPlayer.WonderDeck = GenerarMazoMaravilla(State.LocalPlayer.PlayerWonder);
+            _state.LocalPlayer.WonderDeck = GenerarMazoMaravilla(_state.LocalPlayer.PlayerWonder);
         }
 
         public Card RobarCartaMazoPrincipal() {
-            if (State.MainDeck.Count == 0) return null;
+            if (_state.MainDeck.Count == 0) return null;
 
-            State.LocalPlayer.HandDeck.Add(State.MainDeck[0]);
-            State.MainDeck.RemoveAt(0);
-            return State.LocalPlayer.HandDeck.Last();
+            _state.LocalPlayer.HandDeck.Add(_state.MainDeck[0]);
+            _state.MainDeck.RemoveAt(0);
+            return _state.LocalPlayer.HandDeck.Last();
         }
 
         public Card RobarCartaMazoMaravilla() {
-            if (State.LocalPlayer.WonderDeck.Count == 0) return null;
+            if (_state.LocalPlayer.WonderDeck.Count == 0) return null;
 
-            State.LocalPlayer.HandDeck.Add(State.LocalPlayer.WonderDeck[0]);
-            State.LocalPlayer.WonderDeck.RemoveAt(0);
-            return State.LocalPlayer.HandDeck.Last();
+            _state.LocalPlayer.HandDeck.Add(_state.LocalPlayer.WonderDeck[0]);
+            _state.LocalPlayer.WonderDeck.RemoveAt(0);
+            return _state.LocalPlayer.HandDeck.Last();
         }
 
         public bool ComprobarConstruccion() {
-            if (State.LocalPlayer.EtapaConstruccion > 4) return false;
+            if (_state.LocalPlayer.EtapaConstruccion > 4) return false;
 
             //numero cartas por recurso
-            int maderas = State.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Wood);
-            int piedras = State.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Stone);
-            int arcillas = State.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Clay);
-            int papiros = State.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Papyrus);
-            int cristales = State.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Glass);
-            int oros = State.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Gold);
+            int maderas = _state.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Wood);
+            int piedras = _state.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Stone);
+            int arcillas = _state.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Clay);
+            int papiros = _state.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Papyrus);
+            int cristales = _state.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Glass);
+            int oros = _state.LocalPlayer.HandDeck.Count(c => c.Resource == Card.ResourceType.Gold);
 
             int[] recursos = { maderas, piedras, arcillas, papiros, cristales };
 
@@ -63,7 +72,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             bool puedeConstruir = false;
 
             //construyo segun etapaConstruccion
-            switch (State.LocalPlayer.EtapaConstruccion) {
+            switch (_state.LocalPlayer.EtapaConstruccion) {
                 case 0: // 2 diferentes
                     puedeConstruir = (diferentes + oros) >= 2;
                     break;
@@ -83,7 +92,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
 
             //cambiar imagen (construir para el usuario)
             if (puedeConstruir) {
-                switch (State.LocalPlayer.EtapaConstruccion) {
+                switch (_state.LocalPlayer.EtapaConstruccion) {
                     case 0:
                         borrarCartas(2, true, recursoMayor);
                         break;
@@ -101,7 +110,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
                         break;
                 }
 
-                State.LocalPlayer.EtapaConstruccion++;
+                _state.LocalPlayer.EtapaConstruccion++;
                 return true;
             }
             return false;
@@ -134,8 +143,8 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
         //metodo que devuelve true o false segun borrado
         private bool BorrarUna(Card.ResourceType tipo) {
             //cojo la carta de tipo recurso y de recursoTipo args
-            var carta = State.LocalPlayer.HandDeck.FirstOrDefault(c => c.Type == Card.CardType.Resource && c.Resource == tipo);
-            return carta != null && State.LocalPlayer.HandDeck.Remove(carta);
+            var carta = _state.LocalPlayer.HandDeck.FirstOrDefault(c => c.Type == Card.CardType.Resource && c.Resource == tipo);
+            return carta != null && _state.LocalPlayer.HandDeck.Remove(carta);
         }
 
         private List<Card> PreparacionCartas() {
