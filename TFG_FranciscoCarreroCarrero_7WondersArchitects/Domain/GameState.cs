@@ -13,6 +13,6 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain
         public Player RemotePlayer { get; set; } // El rival de SignalR
 
         //estado
-        public bool IsMyTurn { get; set; } = false;
+        public bool IsHostTurn { get; set; } = false;
     }
 }

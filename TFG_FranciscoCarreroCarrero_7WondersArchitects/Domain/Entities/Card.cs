@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
 namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
 {
@@ -29,13 +25,17 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
             Gear
         }
 
-        public string Id { get; private set; }
-        public CardType Type { get; private set; }
-        public int Horns { get; private set; }
-        public ScienceType? Science { get; private set; }
-        public ResourceType? Resource { get; private set; }
-        public int VictoryPoints { get; private set; }
-        public bool HasCat { get; private set; }
+        [JsonInclude] public string Id { get; private set; }
+        [JsonInclude] public CardType Type { get; private set; }
+        [JsonInclude] public int Horns { get; private set; }
+        [JsonInclude] public ScienceType? Science { get; private set; }
+        [JsonInclude] public ResourceType? Resource { get; private set; }
+        [JsonInclude] public int VictoryPoints { get; private set; }
+        [JsonInclude] public bool HasCat { get; private set; }
+
+        //constructor vacio para json
+        [JsonConstructor]
+        private Card() { }
 
         //constructor carta Recurso
         public Card(string id, ResourceType resourceType) {

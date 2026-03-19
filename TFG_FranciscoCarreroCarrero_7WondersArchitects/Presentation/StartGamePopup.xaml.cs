@@ -28,7 +28,7 @@ public partial class StartGamePopup : Popup {
 
             //hacemos esto para pasar argumentos sin romper la Inyeccion de MauiProgram (tiene el signalRService como singleton)
             var servicios = this.Handler!.MauiContext!.Services;
-            var gameBoard = ActivatorUtilities.CreateInstance<GameBoardPage>(servicios, _playerName, _playerWonder);
+            var gameBoard = ActivatorUtilities.CreateInstance<GameBoardPage>(servicios, _playerName, _playerWonder, roomCode);
 
             //para cerrar el popup tras entrar al tablero
             await this.CloseAsync();
@@ -58,7 +58,7 @@ public partial class StartGamePopup : Popup {
                 if (resultado == "OK") {
                     //hacemos esto para pasar argumentos sin romper la Inyeccion de MauiProgram (tiene el signalRService como singleton)
                     var servicios = this.Handler!.MauiContext!.Services;
-                    var gameBoard = ActivatorUtilities.CreateInstance<GameBoardPage>(servicios, _playerName, _playerWonder);
+                    var gameBoard = ActivatorUtilities.CreateInstance<GameBoardPage>(servicios, _playerName, _playerWonder, roomCode);
                     
                     //para cerrar el popup tras entrar al tablero
                     await this.CloseAsync();

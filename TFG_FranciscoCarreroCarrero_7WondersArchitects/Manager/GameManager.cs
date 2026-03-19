@@ -1,9 +1,14 @@
 ﻿using TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain;
 using TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities;
+using System.Text.Json; 
+using System.Text.Json.Serialization;
 
 namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
     public class GameManager {
-        private GameState _state;
+        private readonly JsonSerializerOptions _jsonOptions;
+        public event Action? OnStateUpdated;
+
+        public GameState _state;////
 
         public int EtapaActual => _state.LocalPlayer.EtapaConstruccion;
         public string NombreJugador => _state.LocalPlayer.Name;
@@ -15,19 +20,26 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
 
 
         public GameManager(string localPlayerName, string localPlayerWonderString) {
+            _jsonOptions = new JsonSerializerOptions {
+                PropertyNameCaseInsensitive = true,
+                ReferenceHandler = ReferenceHandler.Preserve,
+                IncludeFields = true
+            };
+
             _state = new GameState();
 
-            // 1. Parseamos la maravilla y creamos al jugador local
-            if (Enum.TryParse(localPlayerWonderString, out Player.Wonder maravillaEnum)) {
-                _state.LocalPlayer = new Player(localPlayerName, maravillaEnum);
-            }
-
-            // 2. Preparamos el mazo central (tu código original)
+            //preparamos mazo central
             _state.MainDeck = PreparacionCartas();
 
-            // 3. Preparamos el mazo específico de la maravilla del jugador
+            //parseamos la maravilla a enum y creamos jugador local
+            _state.LocalPlayer = new Player(localPlayerName, Enum.Parse<Player.Wonder>(localPlayerWonderString));
+
+            //preparamos mazoMaravilla del jugador local
             _state.LocalPlayer.WonderDeck = GenerarMazoMaravilla(_state.LocalPlayer.PlayerWonder);
+
+            ///
         }
+
 
         public Card RobarCartaMazoPrincipal() {
             if (_state.MainDeck.Count == 0) return null;
@@ -37,11 +49,19 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             return _state.LocalPlayer.HandDeck.Last();
         }
 
-        public Card RobarCartaMazoMaravilla() {
+        public Card RobarCartaMazoMaravillaLocal() {
             if (_state.LocalPlayer.WonderDeck.Count == 0) return null;
 
             _state.LocalPlayer.HandDeck.Add(_state.LocalPlayer.WonderDeck[0]);
             _state.LocalPlayer.WonderDeck.RemoveAt(0);
+            return _state.LocalPlayer.HandDeck.Last();
+        }
+
+        public Card RobarCartaMazoMaravillaRival() {
+            if (_state.RemotePlayer.WonderDeck.Count == 0) return null;
+
+            _state.LocalPlayer.HandDeck.Add(_state.RemotePlayer.WonderDeck[0]);
+            _state.RemotePlayer.WonderDeck.RemoveAt(0);
             return _state.LocalPlayer.HandDeck.Last();
         }
 
@@ -146,6 +166,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             var carta = _state.LocalPlayer.HandDeck.FirstOrDefault(c => c.Type == Card.CardType.Resource && c.Resource == tipo);
             return carta != null && _state.LocalPlayer.HandDeck.Remove(carta);
         }
+
 
         private List<Card> PreparacionCartas() {
             List<Card> mazoPrincipal = new List<Card>();
@@ -348,6 +369,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             return arrayMazo.ToList();
         }
 
+
         //cartas recursos
         private List<Card> AgregarCartasRecurso(List<Card> deck, Card.ResourceType subtipo, int cantidad) {
             for (int i = 0; i < cantidad; i++) {
@@ -380,6 +402,38 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             }
             return deck;
 
+        }
+
+
+        public string ExportStateToJson() {
+            return JsonSerializer.Serialize(_state, _jsonOptions);
+        }
+
+        public void OverwriteStateFromJson(string jsonState) {
+            if (string.IsNullOrWhiteSpace(jsonState)) return;
+
+            var newState = JsonSerializer.Deserialize<GameState>(jsonState, _jsonOptions);
+
+            if (newState != null) {
+                //el que me pasa el state (el rival) deja de ser local y se convierte en visitante
+                var temp = newState.LocalPlayer;
+                newState.LocalPlayer = newState.RemotePlayer;
+                newState.RemotePlayer = temp;
+
+                //machacamos estado antiguo
+                _state = newState;
+
+                //repintamos ui
+                OnStateUpdated?.Invoke();
+            }
+        }
+
+        public void RegistrarRival(string nombreRival, string maravillaRival) {
+            _state.RemotePlayer = new Player(nombreRival, Enum.Parse<Player.Wonder>(maravillaRival));
+
+            _state.RemotePlayer.WonderDeck = GenerarMazoMaravilla(Enum.Parse<Player.Wonder>(maravillaRival));
+
+            _state.IsHostTurn = true;
         }
 
     }

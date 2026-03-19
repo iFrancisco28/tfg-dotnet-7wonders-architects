@@ -11,13 +11,23 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
     {
         private readonly GameManager _gameManager;
         private readonly SignalRService _signalRService;
+        private string _roomCode;
 
-        public GameBoardPage(SignalRService signalRService, string nombreJugador, string maravillaJugador) {
+        public GameBoardPage(SignalRService signalRService, string nombreJugador, string maravillaJugador, string roomCode) {
             InitializeComponent();
             _signalRService = signalRService;
             _gameManager = new Manager.GameManager(nombreJugador, maravillaJugador);
+            _roomCode = roomCode;
 
+            //me suscribo al evento de mostrar aviso
             _signalRService.OnMessageReceived += MostrarAviso;
+            
+            //me suscribo al evento de recibir estado del rival y actualizar tablero con jugadas hechas
+            _signalRService.OnGameStateReceived += RecibirEstadoDelRival;
+            _gameManager.OnStateUpdated += RepintarTablero;
+
+            _signalRService.OnPlayerJoined += RivalSeHaUnido;
+
             PrepararTablero(maravillaJugador);
         }
 
@@ -38,6 +48,34 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             _signalRService.OnMessageReceived -= MostrarAviso;
         }
          */
+
+
+        private void RecibirEstadoDelRival(string jsonState) {
+            //si hemos recibido el estado, que el manager lo gestione
+            _gameManager.OverwriteStateFromJson(jsonState);
+        }
+        
+        private void RepintarTablero() {
+            //esto saltara cuando manager termine con la gestion del nuevo gameState
+            MainThread.BeginInvokeOnMainThread(() => {
+                //se actualizaran las fotos de las dos barajas y fichas de progreso, tambien se mostrara la central si tiene gato
+            });
+            DisplayAlert("sssss", "gamestate finooooooo", "OK");
+
+        }
+
+        private async void EnviarEstadoAlRival() {
+            //terminamos turno, enviamos gameState y que juegue el rival
+            string json = _gameManager.ExportStateToJson();
+            await _signalRService.SendGameStateAsync(_roomCode, json);
+        }
+
+        private void RivalSeHaUnido(string nombreRival, string maravillaRival) {
+            _gameManager.RegistrarRival(nombreRival, maravillaRival);
+
+            EnviarEstadoAlRival();
+        }
+
 
         private void PrepararTablero(string maravillaJugador) {
             string nombreElementoVertical = $"{maravillaJugador}Wonder";
@@ -64,16 +102,19 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         private void GetMainDeckCard(object sender, EventArgs e) {
             Card cartaRobada = _gameManager.RobarCartaMazoPrincipal();
             ProcesarRoboYConstruccion(cartaRobada);
+            EnviarEstadoAlRival();
         }
 
         private void GetLocalWonderDeckCard(object sender, EventArgs e) {
-            Card cartaRobada = _gameManager.RobarCartaMazoMaravilla();
+            Card cartaRobada = _gameManager.RobarCartaMazoMaravillaLocal();
             ProcesarRoboYConstruccion(cartaRobada);
+            EnviarEstadoAlRival();
         }
 
         private void GetRemoteWonderDeckCard(object sender, EventArgs e) {
-            Card cartaRobada = _gameManager.RobarCartaMazoMaravilla();
+            Card cartaRobada = _gameManager.RobarCartaMazoMaravillaRival();
             ProcesarRoboYConstruccion(cartaRobada);
+            EnviarEstadoAlRival();
         }
 
 
@@ -91,7 +132,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
                 int etapaRecienCompletada = _gameManager.EtapaActual;
                 string nombreMaravilla = _gameManager.MaravillaJugador.ToString();
                 ActualizarImagenesMaravilla(etapaRecienCompletada, nombreMaravilla);
-                DisplayAlert("Nueva etapa!", $"Has completado la parte {etapaRecienCompletada} de tu maravilla", "Ok");
+                DisplayAlert("Nueva etapa!", $"Has completado la parte {etapaRecienCompletada} de tu maravilla ({nombreMaravilla})", "Ok");
             }
         }
 
@@ -101,9 +142,9 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         private void ButtonShowPlayerDeck(object sender, EventArgs e) {
             //para probar
             //var popup = new PlayerDeckPopup(_gameManager.State.MainDeck);
-            //var popup = new PlayerDeckPopup(_gameManager.State.LocalPlayer.WonderDeck);
+            var popup = new PlayerDeckPopup(_gameManager._state.LocalPlayer.WonderDeck);
 
-            var popup = new PlayerDeckPopup(_gameManager.ManoJugador);
+            //var popup = new PlayerDeckPopup(_gameManager.ManoJugador);
             this.ShowPopup(popup);
         }
 
