@@ -4,15 +4,20 @@ using TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities;
 namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation;
 
 public partial class PlayerDeckPopup : Popup {
-	public PlayerDeckPopup(IEnumerable<Card> mazoMano)
-	{
+    private readonly Player _localPlayer;
+    private readonly Player _rivalPlayer;
+    public PlayerDeckPopup(Player local, Player rival) {
 		InitializeComponent();
+
+        _localPlayer = local;
+        _rivalPlayer = rival;
+
         //esto espera a que se dibuje todo porque si no se dibuja mal el picker del popup
         Dispatcher.Dispatch(() =>
         {
             OpcionesPicker.SelectedIndex = 0;
         });
-        ActualizarMazoMano(mazoMano);
+        ActualizarMazoMano(_localPlayer.HandDeck);
     }
 
     private void OpcionesPicker_SelectedIndexChanged(object sender, EventArgs e) {
@@ -21,6 +26,7 @@ public partial class PlayerDeckPopup : Popup {
         GridScienceCards.IsVisible = false;
         GridVPCards.IsVisible = false;
         GridWarCards.IsVisible = false;
+        GridGeneralInventory.IsVisible = false;
         
         // 2. Mostramos solo el que toca según lo que haya elegido el usuario
         switch (OpcionesPicker.SelectedIndex) {
@@ -36,7 +42,20 @@ public partial class PlayerDeckPopup : Popup {
             case 3:
                 GridWarCards.IsVisible = true;
                 break;
+            case 4:
+                GridGeneralInventory.IsVisible = true;
+                break;
         }
+    }
+
+    private void SwitchRival_Toggled(object sender, ToggledEventArgs e) {
+        var jugador = e.Value ? _rivalPlayer : _localPlayer;
+
+        if (jugador == null) {
+            return;
+        }
+
+        ActualizarMazoMano(jugador.HandDeck);
     }
 
     private void ActualizarMazoMano(IEnumerable<Card> mazoMano) {

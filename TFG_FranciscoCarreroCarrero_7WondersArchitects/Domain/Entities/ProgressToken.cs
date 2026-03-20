@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
 {
@@ -25,17 +27,21 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
         }
 
         public int Id { get; }
-        public Type TokenType { get; }
-        public string Description { get; }
+        [JsonInclude] public Type TokenType { get; private set; }
+        [JsonInclude] public string Description { get; private set; }
 
 
+        [JsonConstructor]
+        private ProgressToken() { }
 
         public ProgressToken(int id, Type tokenType, string description) {
             Id = id;
             TokenType = tokenType;
             Description = description;
         }
+
+        public override string ToString() {
+            return $"{TokenType}: {Description}";
+        }
     }
-
-
 }

@@ -13,11 +13,13 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
         public bool IsLocalPlayerTurn => _state.IsLocalPlayerTurn;
         public int EtapaActual => _state.LocalPlayer.EtapaConstruccion;
         public string NombreJugador => _state.LocalPlayer.Name;
-        public Player.Wonder MaravillaJugador => _state.LocalPlayer.PlayerWonder;
+        public Wonder.WonderType MaravillaJugador => _state.LocalPlayer.PlayerWonder.Type;
         public int CartasMazoCentral => _state.MainDeck.Count;
         public int CartasLocalMazoMaravilla => _state.LocalPlayer.WonderDeck.Count;
-        public int CartasRivalMazoMaravilla => _state.LocalPlayer.WonderDeck.Count;
+        public int CartasRivalMazoMaravilla => _state.RemotePlayer.WonderDeck.Count;
         public List<Card> ManoJugador => _state.LocalPlayer.HandDeck;
+        public Player LocalPlayer => _state.LocalPlayer;
+        public Player RemotePlayer => _state.RemotePlayer;
 
 
         public GameManager(string localPlayerName, string localPlayerWonderString) {
@@ -33,10 +35,10 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             _state.MainDeck = PreparacionCartas();
 
             //parseamos la maravilla a enum y creamos jugador local
-            _state.LocalPlayer = new Player(localPlayerName, Enum.Parse<Player.Wonder>(localPlayerWonderString));
+            _state.LocalPlayer = new Player(localPlayerName, Enum.Parse<Wonder.WonderType>(localPlayerWonderString));
 
             //preparamos mazoMaravilla del jugador local
-            _state.LocalPlayer.WonderDeck = GenerarMazoMaravilla(_state.LocalPlayer.PlayerWonder);
+            _state.LocalPlayer.WonderDeck = GenerarMazoMaravilla(_state.LocalPlayer.PlayerWonder.Type);
 
             //arrancamos sin turno por defecto
             _state.IsLocalPlayerTurn = false;
@@ -116,29 +118,69 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             if (puedeConstruir) {
                 switch (_state.LocalPlayer.EtapaConstruccion) {
                     case 0:
-                        borrarCartas(2, true, recursoMayor);
+                        BorrarCartas(2, true, recursoMayor);
                         break;
                     case 1:
-                        borrarCartas(2, false, recursoMayor);
+                        BorrarCartas(2, false, recursoMayor);
                         break;
                     case 2:
-                        borrarCartas(3, true, recursoMayor);
+                        BorrarCartas(3, true, recursoMayor);
                         break;
                     case 3:
-                        borrarCartas(3, false, recursoMayor);
+                        BorrarCartas(3, false, recursoMayor);
                         break;
                     case 4:
-                        borrarCartas(4, true, recursoMayor);
-                        break;
+                        BorrarCartas(4, true, recursoMayor);
+                        break;  
                 }
 
                 _state.LocalPlayer.EtapaConstruccion++;
+
+                EvaluarHabilidadesMaravilla();
+
                 return true;
             }
             return false;
         }
 
-        public void borrarCartas(int cantidad, bool sonDiferentes, Card.ResourceType recursoMayor) {
+        private void EvaluarHabilidadesMaravilla() {
+            Wonder.WonderType tipo = _state.LocalPlayer.PlayerWonder.Type;
+            int etapaRecienConstruida = _state.LocalPlayer.EtapaConstruccion;
+
+            if (tipo == Wonder.WonderType.Efeso && (etapaRecienConstruida == 2 || etapaRecienConstruida == 3 || etapaRecienConstruida == 4)) {
+                RobarCartaMazoPrincipal();
+            }
+
+            if (tipo == Wonder.WonderType.Olimpia && (etapaRecienConstruida == 2 || etapaRecienConstruida == 4)) {
+                RobarCartaMazoMaravillaLocal();
+                RobarCartaMazoMaravillaRival();
+            }
+
+            //sin hacer
+
+            if (tipo == Wonder.WonderType.Alejandria && (etapaRecienConstruida == 2 || etapaRecienConstruida == 4)) {
+                //continua su turno, puede robar otra vez de cualquier mazo
+            }
+
+            if (tipo == Wonder.WonderType.Babilonia && (etapaRecienConstruida == 2 || etapaRecienConstruida == 4)) {
+                //continua su turno, puede robar cualquier ficha de progreso
+            }
+
+            if (tipo == Wonder.WonderType.Rodas && (etapaRecienConstruida == 1 || etapaRecienConstruida == 4)) {
+                //suma 1 escudo a player
+            }
+
+            if (tipo == Wonder.WonderType.Halicarnaso && (etapaRecienConstruida == 2 || etapaRecienConstruida == 4)) {
+                //escoge mazo izq o derecha, se muestran las 5 cartas, elige y baraja despues
+                //muy opcional, si no que sea robar central y local
+            }
+
+
+
+
+        }
+
+        public void BorrarCartas(int cantidad, bool sonDiferentes, Card.ResourceType recursoMayor) {
             int borradas = 0;
 
             if (sonDiferentes) {
@@ -205,11 +247,11 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             return mazoPrincipal;
         }
 
-        private List<Card> GenerarMazoMaravilla(Player.Wonder maravilla) {
+        private List<Card> GenerarMazoMaravilla(Wonder.WonderType maravilla) {
             List<Card> mazoMaravilla = new List<Card>();
 
             switch (maravilla) {
-                case Player.Wonder.Guiza:
+                case Wonder.WonderType.Guiza:
                     //cartas recursos
                     foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
                         int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 3 : (tipoRecurso == Card.ResourceType.Clay) ? 1 : 2;
@@ -231,7 +273,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
                     mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 2, 15);  // Índices del 8 al 11
                     break;
 
-                case Player.Wonder.Alejandria:
+                case Wonder.WonderType.Alejandria:
                     //cartas recursos
                     foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
                         int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 4 : (tipoRecurso == Card.ResourceType.Glass) ? 1 : 2;
@@ -253,7 +295,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
                     mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 2, 15);  // Índices del 8 al 11
                     break;
 
-                case Player.Wonder.Babilonia:
+                case Wonder.WonderType.Babilonia:
                     //cartas recursos
                     foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
                         int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 3 : (tipoRecurso == Card.ResourceType.Stone) ? 1 : 2;
@@ -275,7 +317,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
                     mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 2, 15);  // Índices del 8 al 11
                     break;
 
-                case Player.Wonder.Efeso:
+                case Wonder.WonderType.Efeso:
                     //cartas recursos
                     foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
                         int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 3 : 2;
@@ -297,7 +339,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
                     mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 1, 15);  // Índices del 8 al 11
                     break;
 
-                case Player.Wonder.Halicarnaso:
+                case Wonder.WonderType.Halicarnaso:
                     //cartas recursos
                     foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
                         int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 3 : (tipoRecurso == Card.ResourceType.Papyrus) ? 1 : 2;
@@ -319,7 +361,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
                     mazoMaravilla = AgregarCartasVictoria(mazoMaravilla, false, 2, 15);  // Índices del 8 al 11
                     break;
 
-                case Player.Wonder.Olimpia:
+                case Wonder.WonderType.Olimpia:
                     //cartas recursos
                     foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
                         int cantidad = (tipoRecurso == Card.ResourceType.Gold) ? 3 : (tipoRecurso == Card.ResourceType.Wood) ? 1 : 2;
@@ -342,7 +384,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
                     break;
 
 
-                case Player.Wonder.Rodas:
+                case Wonder.WonderType.Rodas:
                     //cartas recursos
                     foreach (var tipoRecurso in Card.GetAllResourceTypes()) {
                         int cantidad = 2;
@@ -434,9 +476,9 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
         }
 
         public void RegistrarRival(string nombreRival, string maravillaRival) {
-            _state.RemotePlayer = new Player(nombreRival, Enum.Parse<Player.Wonder>(maravillaRival));
+            _state.RemotePlayer = new Player(nombreRival, Enum.Parse<Wonder.WonderType>(maravillaRival));
 
-            _state.RemotePlayer.WonderDeck = GenerarMazoMaravilla(Enum.Parse<Player.Wonder>(maravillaRival));
+            _state.RemotePlayer.WonderDeck = GenerarMazoMaravilla(Enum.Parse<Wonder.WonderType>(maravillaRival));
 
             _state.IsLocalPlayerTurn = true;
         }

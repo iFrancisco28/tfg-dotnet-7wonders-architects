@@ -1,102 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.Json.Serialization;
 
-namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
-{
+namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities {
     public sealed class Wonder {
-        public int Id { get; }
-        public string Name { get; }
-
-        public int Part1BuiltPoints { get; private set; }
-        public bool Part1IsBuilt { get; private set; }
-
-        public int Part2BuiltPoints { get; private set; }
-        public bool Part2IsBuilt { get; private set; }
-
-        public int Part3BuiltPoints { get; private set; }
-        public bool Part3IsBuilt { get; private set; }
-
-        public int Part4BuiltPoints { get; private set; }
-        public bool Part4IsBuilt { get; private set; }
-
-        public int Part5BuiltPoints { get; private set; }
-        public bool Part5IsBuilt { get; private set; }
-
-        public Wonder(
-            int id,
-            string name,
-            int part1Points,
-            int part2Points,
-            int part3Points,
-            int part4Points,
-            int part5Points) {
-            Id = id;
-            Name = name;
-            Part1BuiltPoints = part1Points;
-            Part2BuiltPoints = part2Points;
-            Part3BuiltPoints = part3Points;
-            Part4BuiltPoints = part4Points;
-            Part5BuiltPoints = part5Points;
-
-            Part1IsBuilt = false;
-            Part2IsBuilt = false;
-            Part3IsBuilt = false;
-            Part4IsBuilt = false;
-            Part5IsBuilt = false;
+        public enum WonderType {
+            Alejandria,
+            Babilonia,
+            Efeso,
+            Guiza,
+            Halicarnaso,
+            Olimpia,
+            Rodas
         }
 
-        //redundante por codigo en gameboard, a discutir cual dejo
-        public void BuildPart(int partNumber) {
-            switch (partNumber) {
-                case 1: Part1IsBuilt = true; break;
-                case 2: 
-                    if (!Part1IsBuilt){
-                        throw new InvalidOperationException("Part 1 must be built before building Part 2.");
-                    }
-                    Part2IsBuilt = true; 
-                    break;
-                case 3:
-                    if (!Part2IsBuilt) {
-                        throw new InvalidOperationException("Part 2 must be built before building Part 3.");
-                    }
-                    Part3IsBuilt = true;
-                    break;
-                case 4:
-                    if (!Part3IsBuilt) {
-                        throw new InvalidOperationException("Part 3 must be built before building Part 4.");
-                    }
-                    Part4IsBuilt = true;
-                    break;
-                case 5:
-                    if (!Part4IsBuilt) {
-                        throw new InvalidOperationException("Part 4 must be built before building Part 5.");
-                    }
-                    Part5IsBuilt = true;
-                    break;
-                default: throw new ArgumentException("Invalid relic part number.");
-            }
+        [JsonInclude] public WonderType Type { get; private set; }
+
+        [JsonInclude] public int[] PointsPerStage { get; private set; }
+
+        [JsonConstructor]
+        private Wonder() { }
+
+        public Wonder(WonderType type) {
+            Type = type;
+
+            PointsPerStage = type switch {
+                WonderType.Guiza => new[] { 4, 5, 6, 7, 8 },
+                WonderType.Alejandria => new[] { 4, 3, 6, 5, 7 },
+                WonderType.Babilonia => new[] { 3, 0, 5, 5, 7 },
+                WonderType.Efeso => new[] { 3, 5, 4, 3, 7 },
+                WonderType.Halicarnaso => new[] { 3, 3, 6, 5, 7 },
+                WonderType.Olimpia => new[] { 3, 2, 5, 5, 7 },
+                WonderType.Rodas => new[] { 4, 4, 5, 6, 7 }
+            };
         }
 
-        public int TotalPoints() {
+        //los PV que tiene el jugador por {maravilla} en su {etapa}
+        public int TotalPoints(int currentStage) {
             int total = 0;
-            if (Part1IsBuilt) total += Part1BuiltPoints;
-            if (Part2IsBuilt) total += Part2BuiltPoints;
-            if (Part3IsBuilt) total += Part3BuiltPoints;
-            if (Part4IsBuilt) total += Part4BuiltPoints;
-            if (Part5IsBuilt) total += Part5BuiltPoints;
+            for (int i = 0; i < currentStage; i++) {
+                total += PointsPerStage[i];
+            }
             return total;
         }
-
-        public bool IsComplete() {
-            return Part1IsBuilt
-                && Part2IsBuilt
-                && Part3IsBuilt
-                && Part4IsBuilt
-                && Part5IsBuilt;
-        }
     }
-
 }

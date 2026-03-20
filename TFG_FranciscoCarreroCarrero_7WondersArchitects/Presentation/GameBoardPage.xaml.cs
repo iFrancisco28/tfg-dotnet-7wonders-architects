@@ -165,7 +165,10 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             //var popup = new PlayerDeckPopup(_gameManager.State.MainDeck);
             //var popup = new PlayerDeckPopup(_gameManager._state.LocalPlayer.WonderDeck);
 
-            var popup = new PlayerDeckPopup(_gameManager.ManoJugador);
+            var local = _gameManager.LocalPlayer;
+            var rival = _gameManager.RemotePlayer;
+
+            var popup = new PlayerDeckPopup(local, rival);
             this.ShowPopup(popup);
         }
 

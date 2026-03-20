@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation.PlayerDeckPopup">
-    <VerticalStackLayout Spacing="15">
+    <VerticalStackLayout Spacing="5">
         
         <Border BackgroundColor="#F0F0F0" 
                 HorizontalOptions="Start"
@@ -20,9 +20,22 @@
                     <x:String>Cartas de Ciencia</x:String>
                     <x:String>Cartas de Puntos de Victoria</x:String>
                     <x:String>Cartas de Guerra</x:String>
+                    <x:String>Inventario General</x:String>
                 </Picker.Items>
             </Picker>
         </Border>
+
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+            <Label Text="Ver datos del rival" 
+                   VerticalOptions="Center" 
+                   FontSize="14"/>
+
+            <Switch x:Name="SwitchRival" 
+                    VerticalOptions="Center"
+                    OnColor="#E0C58F" 
+                    ThumbColor="#C5A059"
+                    Toggled="SwitchRival_Toggled"/>
+        </HorizontalStackLayout>
 
         <Grid x:Name="GridResourcesCards" RowDefinitions="Auto, Auto" ColumnDefinitions="*, *, *" RowSpacing="10" ColumnSpacing="10">
             <VerticalStackLayout Grid.Row="0" Grid.Column="0" HorizontalOptions="Center">
@@ -89,6 +102,26 @@
             <VerticalStackLayout Grid.Row="0" Grid.Column="2" HorizontalOptions="Center">
                 <Image Source="guerra_cuernos_dos.png" HeightRequest="140" WidthRequest="120"/>
                 <Label x:Name="Lbl2WarCard" Text="Tienes 0 cartas de Guerra con 2 cuernos" HorizontalTextAlignment="Center" HorizontalOptions="Center" FontSize="12"/>
+            </VerticalStackLayout>
+        </Grid>
+
+        <Grid x:Name="GridGeneralInventory" IsVisible="False" ColumnDefinitions="*, *" RowDefinitions="Auto, Auto, Auto" RowSpacing="5">
+            <Label x:Name="LblPlayerName" Grid.Row="0" Grid.ColumnSpan="2" HorizontalTextAlignment="Center" FontSize="18" FontAttributes="Bold" Text="Jugador: ---"/>
+
+            <VerticalStackLayout Grid.Row="1" Grid.Column="0" Spacing="2">
+                <Label Text="Maravilla" FontAttributes="Bold" TextDecorations="Underline"/>
+                <Label x:Name="LblWonderName" Text="Nombre: ---"/>
+                <Label x:Name="LblConstructionStage" Text="Etapa: 0/5"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Grid.Column="1" Spacing="2">
+                <Label Text="Milicia" FontAttributes="Bold" TextDecorations="Underline"/>
+                <Label x:Name="LblMilitaryPoints" Text="Fichas de Victoria: 0"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="2" Grid.ColumnSpan="2" Margin="0,10,0,0">
+                <Label Text="Fichas de Progreso" FontAttributes="Bold" TextDecorations="Underline"/>
+                <Label x:Name="LblProgressTokens" Text="Ninguna"/>
             </VerticalStackLayout>
         </Grid>
 
