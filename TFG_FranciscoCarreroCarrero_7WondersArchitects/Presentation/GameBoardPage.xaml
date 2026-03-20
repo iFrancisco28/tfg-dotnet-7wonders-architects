@@ -49,13 +49,14 @@
                              Aspect="AspectFit"
                              Clicked="GetMainDeckCard"/>
 
-                <ImageButton x:Name="DiscardCard"
-                             Source="cartasGenerales/puntos_victoria_tres.png" 
+                
+                <ImageButton Source="cartasGenerales/puntos_victoria_tres.png" 
                              HeightRequest="120"
                              WidthRequest="85" 
                              Aspect="AspectFit"
                              Opacity="100"
                              InputTransparent="True"/> <!--uso opacity porque si no reajusta la carta izq-->
+                
 
                 <VerticalStackLayout Spacing="5" VerticalOptions="Center">
                     <Image Source="fichasGenerales/ficha_conflicto_guerra.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>

@@ -22,7 +22,19 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities {
             PlayerWonder = new Wonder(wonderType);
         }
 
-        public int GetPuntosMaravilla() {
+        public int GetPuntosVictoriaCartas() {
+            int totalPoints = 0;
+
+            foreach (var card in HandDeck) {
+                if (card.Type == Card.CardType.VictoryPoint) {
+                    totalPoints += card.VictoryPoints;
+                }
+            }
+
+            return totalPoints;
+        }
+
+        public int GetPuntosVictoriaMaravilla() {
             return PlayerWonder.TotalPoints(EtapaConstruccion);
         }
     }

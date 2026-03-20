@@ -17,7 +17,7 @@ public partial class PlayerDeckPopup : Popup {
         {
             OpcionesPicker.SelectedIndex = 0;
         });
-        ActualizarMazoMano(_localPlayer.HandDeck);
+        ActualizarMazoMano(_localPlayer);
     }
 
     private void OpcionesPicker_SelectedIndexChanged(object sender, EventArgs e) {
@@ -55,10 +55,12 @@ public partial class PlayerDeckPopup : Popup {
             return;
         }
 
-        ActualizarMazoMano(jugador.HandDeck);
+        ActualizarMazoMano(jugador);
     }
 
-    private void ActualizarMazoMano(IEnumerable<Card> mazoMano) {
+    private void ActualizarMazoMano(Player jugador) {
+        
+        List<Card> mazoMano = jugador.HandDeck;
         if (mazoMano == null || !mazoMano.Any())
             return;
 
@@ -84,5 +86,12 @@ public partial class PlayerDeckPopup : Popup {
         Lbl0WarCard.Text = $"Tienes {mazoMano.Count(c => c.Horns == 0 && c.Type == Card.CardType.Military)} cartas de Guerra sin cuernos";
         Lbl1WarCard.Text = $"Tienes {mazoMano.Count(c => c.Horns == 1)} cartas de Guerra con 1 cuerno";
         Lbl2WarCard.Text = $"Tienes {mazoMano.Count(c => c.Horns == 2)} cartas de Guerra con 2 cuernos";
+
+        //inventario general
+        LblPlayerName.Text = $"Jugador: {jugador.Name}";
+        LblWonderName.Text = $"Nombre: {jugador.PlayerWonder.Type}";
+        LblConstructionStage.Text = $"Etapa: {jugador.EtapaConstruccion}/5";
+        LblVictoryPoints.Text = $"Puntos de Victoria: {jugador.GetPuntosVictoriaMaravilla()+jugador.GetPuntosVictoriaCartas()}";
+        LblMilitaryPoints.Text = $"Puntos de Victoria Mitar: {jugador.FichasVictoriaMilitar}";
     }
 }
