@@ -6,13 +6,13 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain
         //comun
         public List<Card> MainDeck { get; set; } = new List<Card>();
 
-        public int CuernosGuerra { get; set; } = 0; // Para el futuro
+        public int AvisosGuerraLevantadas { get; set; } = 0; //sin hacer
 
         //jugadores
         public Player LocalPlayer { get; set; }
-        public Player RemotePlayer { get; set; } // El rival de SignalR
+        public Player RemotePlayer { get; set; } 
 
         //estado
-        public bool IsHostTurn { get; set; } = false;
+        public bool IsLocalPlayerTurn { get; set; }
     }
 }

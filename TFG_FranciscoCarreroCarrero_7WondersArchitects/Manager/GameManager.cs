@@ -8,8 +8,9 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
         private readonly JsonSerializerOptions _jsonOptions;
         public event Action? OnStateUpdated;
 
-        public GameState _state;////
+        private GameState _state;
 
+        public bool IsLocalPlayerTurn => _state.IsLocalPlayerTurn;
         public int EtapaActual => _state.LocalPlayer.EtapaConstruccion;
         public string NombreJugador => _state.LocalPlayer.Name;
         public Player.Wonder MaravillaJugador => _state.LocalPlayer.PlayerWonder;
@@ -37,7 +38,8 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             //preparamos mazoMaravilla del jugador local
             _state.LocalPlayer.WonderDeck = GenerarMazoMaravilla(_state.LocalPlayer.PlayerWonder);
 
-            ///
+            //arrancamos sin turno por defecto
+            _state.IsLocalPlayerTurn = false;
         }
 
 
@@ -420,6 +422,9 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
                 newState.LocalPlayer = newState.RemotePlayer;
                 newState.RemotePlayer = temp;
 
+                //cambiamos el turno
+                newState.IsLocalPlayerTurn = !newState.IsLocalPlayerTurn;
+
                 //machacamos estado antiguo
                 _state = newState;
 
@@ -433,7 +438,11 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
 
             _state.RemotePlayer.WonderDeck = GenerarMazoMaravilla(Enum.Parse<Player.Wonder>(maravillaRival));
 
-            _state.IsHostTurn = true;
+            _state.IsLocalPlayerTurn = true;
+        }
+
+        public void FinalizarTurno() {
+            _state.IsLocalPlayerTurn = false;
         }
 
     }

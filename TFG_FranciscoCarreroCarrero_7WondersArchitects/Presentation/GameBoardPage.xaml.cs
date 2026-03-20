@@ -29,6 +29,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             _signalRService.OnPlayerJoined += RivalSeHaUnido;
 
             PrepararTablero(maravillaJugador);
+            RepintarTablero();
         }
 
         //avisador multijugador
@@ -56,12 +57,21 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         }
         
         private void RepintarTablero() {
-            //esto saltara cuando manager termine con la gestion del nuevo gameState
+            //esto saltara cada vez que el manager machaque su antiguo gameState con el nuevo recibido
             MainThread.BeginInvokeOnMainThread(() => {
                 //se actualizaran las fotos de las dos barajas y fichas de progreso, tambien se mostrara la central si tiene gato
+                bool meToca = _gameManager.IsLocalPlayerTurn;
+                if (meToca) {
+                    lblTurn.Text = "🟩 ES TU TURNO";
+                    lblTurn.TextColor = Colors.Green;
+                } else {
+                    lblTurn.Text = "🟥 TURNO DEL RIVAL";
+                    lblTurn.TextColor = Colors.Red;
+                }
+                MainDeck.IsEnabled = meToca;
+                LocalWonderDeck.IsEnabled = meToca;
+                RemoteWonderDeck.IsEnabled = meToca;
             });
-            DisplayAlert("sssss", "gamestate finooooooo", "OK");
-
         }
 
         private async void EnviarEstadoAlRival() {
@@ -72,6 +82,8 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
 
         private void RivalSeHaUnido(string nombreRival, string maravillaRival) {
             _gameManager.RegistrarRival(nombreRival, maravillaRival);
+
+            RepintarTablero();
 
             EnviarEstadoAlRival();
         }
@@ -102,18 +114,27 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         private void GetMainDeckCard(object sender, EventArgs e) {
             Card cartaRobada = _gameManager.RobarCartaMazoPrincipal();
             ProcesarRoboYConstruccion(cartaRobada);
+            
+            _gameManager.FinalizarTurno();
+            RepintarTablero();
             EnviarEstadoAlRival();
         }
 
         private void GetLocalWonderDeckCard(object sender, EventArgs e) {
             Card cartaRobada = _gameManager.RobarCartaMazoMaravillaLocal();
             ProcesarRoboYConstruccion(cartaRobada);
+            
+            _gameManager.FinalizarTurno();
+            RepintarTablero();
             EnviarEstadoAlRival();
         }
 
         private void GetRemoteWonderDeckCard(object sender, EventArgs e) {
             Card cartaRobada = _gameManager.RobarCartaMazoMaravillaRival();
             ProcesarRoboYConstruccion(cartaRobada);
+
+            _gameManager.FinalizarTurno();
+            RepintarTablero();
             EnviarEstadoAlRival();
         }
 
@@ -142,9 +163,9 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         private void ButtonShowPlayerDeck(object sender, EventArgs e) {
             //para probar
             //var popup = new PlayerDeckPopup(_gameManager.State.MainDeck);
-            var popup = new PlayerDeckPopup(_gameManager._state.LocalPlayer.WonderDeck);
+            //var popup = new PlayerDeckPopup(_gameManager._state.LocalPlayer.WonderDeck);
 
-            //var popup = new PlayerDeckPopup(_gameManager.ManoJugador);
+            var popup = new PlayerDeckPopup(_gameManager.ManoJugador);
             this.ShowPopup(popup);
         }
 

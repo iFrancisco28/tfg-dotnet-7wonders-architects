@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TFG_FranciscoCarreroCarrero_7WondersArchitects.GameBoardPage">
+             x:Class="TFG_FranciscoCarreroCarrero_7WondersArchitects.GameBoardPage"
+             Shell.NavBarIsVisible="False">
 
     <Grid>
         <Image Source="imagenesGlobales/fondo_pantalla.jpg"
@@ -11,6 +12,19 @@
         <!--grid superpuesto-->
         <Grid RowDefinitions="*,*,Auto,Auto"
               ColumnDefinitions="*,*,*">
+
+            <Label x:Name="lblTurn"
+                   Text="Preparando..."
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="3" 
+                   FontSize="22"
+                   FontAttributes="Bold"
+                   FontFamily="serif"
+                   Margin="0,20,0,0" 
+                   HorizontalTextAlignment="Center" 
+                   HorizontalOptions="Center"
+                   VerticalOptions="Start"/>
 
             <!--bloque superior-->
             <HorizontalStackLayout Grid.Row="0"
@@ -28,19 +42,20 @@
 
                 <Image Source="fichasGenerales/ficha_bocaabajo.png" HeightRequest="45" WidthRequest="70" Aspect="AspectFit" Margin="-18"/>
 
-                <ImageButton Source="cartasGenerales/carta_bocaabajo.png"
-                 HeightRequest="120"
-                 WidthRequest="80" 
-                 Aspect="AspectFit"
-                 Clicked="GetMainDeckCard"/>
+                <ImageButton x:Name="MainDeck"
+                             Source="cartasGenerales/carta_bocaabajo.png"
+                             HeightRequest="120"
+                             WidthRequest="80" 
+                             Aspect="AspectFit"
+                             Clicked="GetMainDeckCard"/>
 
                 <ImageButton x:Name="DiscardCard"
-                     Source="cartasGenerales/puntos_victoria_tres.png" 
-                     HeightRequest="120"
-                     WidthRequest="85" 
-                     Aspect="AspectFit"
-                     Opacity="100"
-                     InputTransparent="True"/> <!--uso opacity porque si no reajusta la carta izq-->
+                             Source="cartasGenerales/puntos_victoria_tres.png" 
+                             HeightRequest="120"
+                             WidthRequest="85" 
+                             Aspect="AspectFit"
+                             Opacity="100"
+                             InputTransparent="True"/> <!--uso opacity porque si no reajusta la carta izq-->
 
                 <VerticalStackLayout Spacing="5" VerticalOptions="Center">
                     <Image Source="fichasGenerales/ficha_conflicto_guerra.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
@@ -51,7 +66,8 @@
             </HorizontalStackLayout>
 
             <!--baraja izq-->
-            <ImageButton Grid.Row="1"
+            <ImageButton x:Name="LocalWonderDeck"
+                         Grid.Row="1"
                          Grid.Column="0"
                          Source="cartasGenerales/puntos_victoria_dos.png"
                          HeightRequest="120"
@@ -70,7 +86,8 @@
                          VerticalOptions="Start"/>
 
             <!--baraja der-->
-            <ImageButton Grid.Row="1"
+            <ImageButton x:Name="RemoteWonderDeck"
+                         Grid.Row="1"
                          Grid.Column="2"
                          Source="cartasGenerales/recurso_oro.png"
                          HeightRequest="120"
