@@ -20,6 +20,9 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
         public List<Card> ManoJugador => _state.LocalPlayer.HandDeck;
         public Player LocalPlayer => _state.LocalPlayer;
         public Player RemotePlayer => _state.RemotePlayer;
+        //para ver si se acabo la partida
+        public bool IsGameOver => _state.LocalPlayer.EtapaConstruccion >= 5 ||
+                         (_state.RemotePlayer != null && _state.RemotePlayer.EtapaConstruccion >= 5);
 
 
         public GameManager(string localPlayerName, string localPlayerWonderString) {
@@ -469,6 +472,9 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
 
                 //machacamos estado antiguo
                 _state = newState;
+                
+                //si ya termino la partida ya no es tu turno
+                if (IsGameOver) _state.IsLocalPlayerTurn = false;
 
                 //repintamos ui
                 OnStateUpdated?.Invoke();
@@ -486,6 +492,8 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
         public void FinalizarTurno() {
             _state.IsLocalPlayerTurn = false;
         }
+
+        
 
     }
 

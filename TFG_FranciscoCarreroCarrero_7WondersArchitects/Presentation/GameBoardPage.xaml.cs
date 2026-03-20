@@ -59,13 +59,24 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         private void RepintarTablero() {
             //esto saltara cada vez que el manager machaque su antiguo gameState con el nuevo recibido
             MainThread.BeginInvokeOnMainThread(() => {
-                //se actualizaran las fotos de las dos barajas y fichas de progreso, tambien se mostrara la central si tiene gato
+                if (_gameManager.IsGameOver) {
+                    lblTurn.Text = "¡PARTIDA FINALIZADA!";
+                    lblTurn.TextColor = Colors.Gold; 
+
+                    MainDeck.IsEnabled = false;
+                    LocalWonderDeck.IsEnabled = false;
+                    RemoteWonderDeck.IsEnabled = false;
+
+                    var popup = new PlayerDeckPopup(_gameManager.LocalPlayer, _gameManager.RemotePlayer, true);
+                    this.ShowPopup(popup);
+                }
+
                 bool meToca = _gameManager.IsLocalPlayerTurn;
                 if (meToca) {
-                    lblTurn.Text = "🟩 ES TU TURNO";
+                    lblTurn.Text = "ES TU TURNO";
                     lblTurn.TextColor = Colors.Green;
                 } else {
-                    lblTurn.Text = "🟥 TURNO DEL RIVAL";
+                    lblTurn.Text = "TURNO DEL RIVAL";
                     lblTurn.TextColor = Colors.Red;
                 }
                 MainDeck.IsEnabled = meToca;
@@ -168,7 +179,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             var local = _gameManager.LocalPlayer;
             var rival = _gameManager.RemotePlayer;
 
-            var popup = new PlayerDeckPopup(local, rival);
+            var popup = new PlayerDeckPopup(local, rival, _gameManager.IsGameOver);
             this.ShowPopup(popup);
         }
 

@@ -6,7 +6,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Presentation;
 public partial class PlayerDeckPopup : Popup {
     private readonly Player _localPlayer;
     private readonly Player _rivalPlayer;
-    public PlayerDeckPopup(Player local, Player rival) {
+    public PlayerDeckPopup(Player local, Player rival,bool isGameOver) {
 		InitializeComponent();
 
         _localPlayer = local;
@@ -15,7 +15,7 @@ public partial class PlayerDeckPopup : Popup {
         //esto espera a que se dibuje todo porque si no se dibuja mal el picker del popup
         Dispatcher.Dispatch(() =>
         {
-            OpcionesPicker.SelectedIndex = 0;
+            OpcionesPicker.SelectedIndex = isGameOver ? 4 : 0;
         });
         ActualizarMazoMano(_localPlayer);
     }
