@@ -10,6 +10,10 @@ using System.Net.Http;
 namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Services {
     public class SignalRService {
         private readonly HubConnection _connection;
+
+        //url azure
+        private readonly string _baseUrl = "https://tfg7wonders-architects-dheyb8bhdjdbeucq.spaincentral-01.azurewebsites.net";
+
         //evento para escuchar el gameState
         public event Action<string> OnGameStateReceived;
 
@@ -20,7 +24,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Services {
         public event Action<string, string> OnPlayerJoined;
 
         public SignalRService() {
-            string urlServidor = "http://10.0.2.2:5222/gamehub";
+            string urlServidor = $"{_baseUrl}/gamehub";
 
             _connection = new HubConnectionBuilder()
                 .WithUrl(urlServidor)
@@ -88,14 +92,14 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Services {
         private async Task<bool> IsServerAliveAsync() {
             try {
                 using var client = new HttpClient();
-                client.Timeout = TimeSpan.FromSeconds(3); // 3 segundos para responder
+                client.Timeout = TimeSpan.FromSeconds(6); // 6 segundos para responder
 
                 // petición rápida a ruta raíz
-                var response = await client.GetAsync("http://10.0.2.2:5222/");
+                var response = await client.GetAsync(_baseUrl);
 
                 return response.IsSuccessStatusCode; //true si esta levantado
             } catch {
-                //si esta apagado o tardo mas de 3 segundos false
+                //si esta apagado o tardo mas de 6 segundos false
                 return false;
             }
         }

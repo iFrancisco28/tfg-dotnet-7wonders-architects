@@ -48,8 +48,11 @@
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
-	  <AndroidKeyStore>False</AndroidKeyStore>
-	  <AndroidPackageFormat>apk</AndroidPackageFormat>
+		<AndroidKeyStore>False</AndroidKeyStore>
+		<AndroidPackageFormat>apk</AndroidPackageFormat>
+		<RuntimeIdentifier>android-arm64</RuntimeIdentifier>
+		<EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+		<AndroidManagedSymbols>false</AndroidManagedSymbols>
 	</PropertyGroup>
 
 	<ItemGroup>
