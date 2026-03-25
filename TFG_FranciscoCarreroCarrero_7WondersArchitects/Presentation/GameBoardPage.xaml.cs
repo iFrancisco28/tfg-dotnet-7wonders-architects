@@ -59,6 +59,13 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         private void RepintarTablero() {
             //esto saltara cada vez que el manager machaque su antiguo gameState con el nuevo recibido
             MainThread.BeginInvokeOnMainThread(() => {
+                //pintar fichas paz/guerra
+                int avisos = _gameManager.AvisosGuerra;
+                FichaConflicto1.Source = avisos >= 1 ? "ficha_conflicto_guerra.png" : "ficha_conflicto_paz.png";
+                FichaConflicto2.Source = avisos >= 2 ? "ficha_conflicto_guerra.png" : "ficha_conflicto_paz.png";
+                FichaConflicto3.Source = avisos >= 3 ? "ficha_conflicto_guerra.png" : "ficha_conflicto_paz.png";
+
+                //comprobar si se termino
                 if (_gameManager.IsGameOver) {
                     lblTurn.Text = "¡PARTIDA FINALIZADA!";
                     lblTurn.TextColor = Colors.Gold; 
@@ -71,6 +78,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
                     this.ShowPopup(popup);
                 }
 
+                //"semaforo"
                 bool meToca = _gameManager.IsLocalPlayerTurn;
                 if (meToca) {
                     lblTurn.Text = "ES TU TURNO";
@@ -157,6 +165,8 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
                 DisplayAlert("Aviso", "Este mazo está vacío.", "OK");
                 return; 
             }
+            
+            _gameManager.EvaluarGuerra(cartaRobada);
 
             bool seHaConstruidoAlgo = _gameManager.ComprobarConstruccion();
 

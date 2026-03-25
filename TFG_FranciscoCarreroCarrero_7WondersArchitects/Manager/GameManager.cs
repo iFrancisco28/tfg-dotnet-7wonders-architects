@@ -14,6 +14,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
         public int EtapaActual => _state.LocalPlayer.EtapaConstruccion;
         public string NombreJugador => _state.LocalPlayer.Name;
         public Wonder.WonderType MaravillaJugador => _state.LocalPlayer.PlayerWonder.Type;
+        public int AvisosGuerra => _state.AvisosGuerraLevantadas;
         public int CartasMazoCentral => _state.MainDeck.Count;
         public int CartasLocalMazoMaravilla => _state.LocalPlayer.WonderDeck.Count;
         public int CartasRivalMazoMaravilla => _state.RemotePlayer.WonderDeck.Count;
@@ -493,7 +494,44 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             _state.IsLocalPlayerTurn = false;
         }
 
-        
+
+        public void EvaluarGuerra(Card cartaRobada) {
+            if (cartaRobada != null && cartaRobada.Type == Card.CardType.Military && cartaRobada.Horns > 0) {
+                _state.AvisosGuerraLevantadas += cartaRobada.Horns;
+
+                if (_state.AvisosGuerraLevantadas >= 3) {
+                    ResolverGuerra();
+                }
+            }
+        }
+
+        private void ResolverGuerra() {
+            int escudosLocal = _state.LocalPlayer.HandDeck.Count(c => c.Type == Card.CardType.Military);
+            int escudosRival = _state.RemotePlayer.HandDeck.Count(c => c.Type == Card.CardType.Military);
+
+            //si gano normal +3, si gano por el doble +6, si tengo mas de 2 y el otro 0 +6
+            if (escudosLocal > escudosRival) {
+                if (escudosLocal >= escudosRival * 2 && escudosLocal >= 2) {
+                    _state.LocalPlayer.FichasVictoriaMilitar += 6;
+                } else {
+                    _state.LocalPlayer.FichasVictoriaMilitar += 3;
+                }
+            } else if (escudosRival > escudosLocal) {
+                if (escudosRival >= escudosLocal * 2 && escudosRival >= 2) {
+                    _state.RemotePlayer.FichasVictoriaMilitar += 6;
+                } else {
+                    _state.RemotePlayer.FichasVictoriaMilitar += 3;
+                }
+            }
+
+            //eliminamos las cartas que tengan cuernos
+            _state.LocalPlayer.HandDeck.RemoveAll(c => c.Type == Card.CardType.Military && c.Horns > 0);
+            _state.RemotePlayer.HandDeck.RemoveAll(c => c.Type == Card.CardType.Military && c.Horns > 0);
+
+            _state.AvisosGuerraLevantadas = 0;
+        }
+
+
 
     }
 

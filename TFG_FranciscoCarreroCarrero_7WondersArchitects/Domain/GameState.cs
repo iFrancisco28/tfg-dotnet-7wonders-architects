@@ -6,7 +6,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain
         //comun
         public List<Card> MainDeck { get; set; } = new List<Card>();
 
-        public int AvisosGuerraLevantadas { get; set; } = 0; //sin hacer
+        public int AvisosGuerraLevantadas { get; set; } = 0; 
 
         //jugadores
         public Player LocalPlayer { get; set; }

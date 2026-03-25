@@ -49,19 +49,20 @@
                              Aspect="AspectFit"
                              Clicked="GetMainDeckCard"/>
 
-                
-                <ImageButton Source="cartasGenerales/puntos_victoria_tres.png" 
+
+                <ImageButton x:Name="CartaGato" 
+                             Source="cartasGenerales/puntos_victoria_tres.png" 
                              HeightRequest="120"
                              WidthRequest="85" 
                              Aspect="AspectFit"
-                             Opacity="100"
+                             Opacity="0"
                              InputTransparent="True"/> <!--uso opacity porque si no reajusta la carta izq-->
                 
 
                 <VerticalStackLayout Spacing="5" VerticalOptions="Center">
-                    <Image Source="fichasGenerales/ficha_conflicto_guerra.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
-                    <Image Source="fichasGenerales/ficha_conflicto_paz.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
-                    <Image Source="fichasGenerales/ficha_conflicto_paz.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                    <Image x:Name="FichaConflicto1" Source="fichasGenerales/ficha_conflicto_paz.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                    <Image x:Name="FichaConflicto2" Source="fichasGenerales/ficha_conflicto_paz.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
+                    <Image x:Name="FichaConflicto3" Source="fichasGenerales/ficha_conflicto_paz.png" HeightRequest="50" WidthRequest="50" Aspect="AspectFit"/>
                 </VerticalStackLayout>
 
             </HorizontalStackLayout>
@@ -84,6 +85,8 @@
                          Source="carta_gato.png"
                          HeightRequest="95"
                          Margin="0,10,0,0"
+                         Opacity="0"
+                         InputTransparent="True"
                          VerticalOptions="Start"/>
 
             <!--baraja der-->
