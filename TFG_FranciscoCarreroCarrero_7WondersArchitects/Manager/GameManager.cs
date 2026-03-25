@@ -7,6 +7,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
     public class GameManager {
         private readonly JsonSerializerOptions _jsonOptions;
         public event Action? OnStateUpdated;
+        public event Action<string>? OnGuerraFinalizada;
 
         private GameState _state;
 
@@ -160,6 +161,10 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
                 RobarCartaMazoMaravillaRival();
             }
 
+            if (tipo == Wonder.WonderType.Rodas && (etapaRecienConstruida == 1 || etapaRecienConstruida == 4)) {
+                _state.LocalPlayer.HandDeck.Add(new Card("cartaEscudoRodas", 0));
+            }
+
             //sin hacer
 
             if (tipo == Wonder.WonderType.Alejandria && (etapaRecienConstruida == 2 || etapaRecienConstruida == 4)) {
@@ -168,10 +173,6 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
 
             if (tipo == Wonder.WonderType.Babilonia && (etapaRecienConstruida == 2 || etapaRecienConstruida == 4)) {
                 //continua su turno, puede robar cualquier ficha de progreso
-            }
-
-            if (tipo == Wonder.WonderType.Rodas && (etapaRecienConstruida == 1 || etapaRecienConstruida == 4)) {
-                //suma 1 escudo a player
             }
 
             if (tipo == Wonder.WonderType.Halicarnaso && (etapaRecienConstruida == 2 || etapaRecienConstruida == 4)) {
@@ -508,21 +509,33 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
         private void ResolverGuerra() {
             int escudosLocal = _state.LocalPlayer.HandDeck.Count(c => c.Type == Card.CardType.Military);
             int escudosRival = _state.RemotePlayer.HandDeck.Count(c => c.Type == Card.CardType.Military);
-
+            string resultado="";
             //si gano normal +3, si gano por el doble +6, si tengo mas de 2 y el otro 0 +6
             if (escudosLocal > escudosRival) {
-                if (escudosLocal >= escudosRival * 2 && escudosLocal >= 2) {
+                if (escudosLocal >= escudosRival * 2 && escudosLocal >= 2) {    
                     _state.LocalPlayer.FichasVictoriaMilitar += 6;
+                    resultado = $"{_state.LocalPlayer.Name} con {escudosLocal} escudos gana por aplastamiento a {_state.RemotePlayer.Name} con {escudosRival} escudos";
                 } else {
                     _state.LocalPlayer.FichasVictoriaMilitar += 3;
+                    resultado = $"{_state.LocalPlayer.Name} con {escudosLocal} escudos gana a {_state.RemotePlayer.Name} con {escudosRival} escudos";
+
                 }
             } else if (escudosRival > escudosLocal) {
                 if (escudosRival >= escudosLocal * 2 && escudosRival >= 2) {
                     _state.RemotePlayer.FichasVictoriaMilitar += 6;
+                    resultado = $"{_state.RemotePlayer.Name} con {escudosRival} escudos gana por aplastamiento a {_state.LocalPlayer.Name} con {escudosLocal} escudos";
                 } else {
                     _state.RemotePlayer.FichasVictoriaMilitar += 3;
+                    resultado = $"{_state.RemotePlayer.Name} con {escudosRival} escudos gana a {_state.LocalPlayer.Name} con {escudosLocal} escudos";
                 }
+            } else {
+                resultado = $"Empate, ambos jugadores tienen {escudosLocal} escudos";
             }
+
+
+
+                OnGuerraFinalizada?.Invoke(resultado);
+
 
             //eliminamos las cartas que tengan cuernos
             _state.LocalPlayer.HandDeck.RemoveAll(c => c.Type == Card.CardType.Military && c.Horns > 0);

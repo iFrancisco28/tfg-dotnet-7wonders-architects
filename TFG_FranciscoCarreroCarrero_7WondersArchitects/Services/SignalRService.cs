@@ -19,9 +19,12 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Services {
 
         //evento para avisar a la interfaz cuando llegue un mensaje
         public event Action<string, string> OnMessageReceived;
+        public event Action<string> OnGameNotificationReceived;
 
         //evento para registrar al rival
         public event Action<string, string> OnPlayerJoined;
+
+
 
         public SignalRService() {
             string urlServidor = $"{_baseUrl}/gamehub";
@@ -34,6 +37,11 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Services {
             _connection.On<string, string>("ReceiveMessage", (user, message) => {
                 OnMessageReceived?.Invoke(user, message);
             });
+
+            _connection.On<string>("ReceiveGameNotification", (message) => {
+                OnGameNotificationReceived?.Invoke(message);
+            });
+
 
             //para recibir el gameState del juego
             _connection.On<string>("ReceiveGameState", (jsonState) => {
@@ -83,10 +91,13 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Services {
 
 
         //mensaje a todos los jugadores de x sala 
-        public async Task SendGreetingAsync(string roomCode) {
-            string mensaje = $"Todos los jugadores conectados, ¡a construir!";
+        public async Task SendMessageToRoomAsync(string roomCode, string mensaje) {
             await _connection.InvokeAsync("SendMessageToRoom", roomCode, mensaje);
         }
+        public async Task SendGameNotificationAsync(string roomCode, string mensaje) {
+            await _connection.InvokeAsync("SendGameNotification", roomCode, mensaje);
+        }
+
 
         //comprobar si el servidor esta levantado
         private async Task<bool> IsServerAliveAsync() {

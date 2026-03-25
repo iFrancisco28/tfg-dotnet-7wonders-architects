@@ -28,6 +28,10 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
 
             _signalRService.OnPlayerJoined += RivalSeHaUnido;
 
+            //evento de resolucion de guerra
+            _signalRService.OnGameNotificationReceived += MostrarAlertaGuerra;
+            _gameManager.OnGuerraFinalizada += EnviarResultadoGuerra;
+
             PrepararTablero(maravillaJugador);
             RepintarTablero();
         }
@@ -130,27 +134,27 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
 
 
 
-        private void GetMainDeckCard(object sender, EventArgs e) {
+        private async void GetMainDeckCard(object sender, EventArgs e) {
             Card cartaRobada = _gameManager.RobarCartaMazoPrincipal();
-            ProcesarRoboYConstruccion(cartaRobada);
+            await ProcesarRoboYConstruccion(cartaRobada);
             
             _gameManager.FinalizarTurno();
             RepintarTablero();
             EnviarEstadoAlRival();
         }
 
-        private void GetLocalWonderDeckCard(object sender, EventArgs e) {
+        private async void GetLocalWonderDeckCard(object sender, EventArgs e) {
             Card cartaRobada = _gameManager.RobarCartaMazoMaravillaLocal();
-            ProcesarRoboYConstruccion(cartaRobada);
+            await ProcesarRoboYConstruccion(cartaRobada);
             
             _gameManager.FinalizarTurno();
             RepintarTablero();
             EnviarEstadoAlRival();
         }
 
-        private void GetRemoteWonderDeckCard(object sender, EventArgs e) {
+        private async void GetRemoteWonderDeckCard(object sender, EventArgs e) {
             Card cartaRobada = _gameManager.RobarCartaMazoMaravillaRival();
-            ProcesarRoboYConstruccion(cartaRobada);
+            await ProcesarRoboYConstruccion(cartaRobada);
 
             _gameManager.FinalizarTurno();
             RepintarTablero();
@@ -158,11 +162,11 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         }
 
 
-        private void ProcesarRoboYConstruccion(Card cartaRobada) {
+        private async Task ProcesarRoboYConstruccion(Card cartaRobada) {
             if (cartaRobada != null) {
-                DisplayAlert("Has robado", cartaRobada.ToString(), "OK");
+                await DisplayAlert("Has robado", cartaRobada.ToString(), "OK");
             } else {
-                DisplayAlert("Aviso", "Este mazo está vacío.", "OK");
+                await DisplayAlert("Aviso", "Este mazo está vacío.", "OK");
                 return; 
             }
             
@@ -174,10 +178,19 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
                 int etapaRecienCompletada = _gameManager.EtapaActual;
                 string nombreMaravilla = _gameManager.MaravillaJugador.ToString();
                 ActualizarImagenesMaravilla(etapaRecienCompletada, nombreMaravilla);
-                DisplayAlert("Nueva etapa!", $"Has completado la parte {etapaRecienCompletada} de tu maravilla ({nombreMaravilla})", "Ok");
+                await DisplayAlert("Nueva etapa!", $"Has completado la parte {etapaRecienCompletada} de tu maravilla ({nombreMaravilla})", "Ok");
             }
         }
 
+        private async void EnviarResultadoGuerra(string texto) {
+            await _signalRService.SendGameNotificationAsync(_roomCode, texto);
+        }
+
+        private void MostrarAlertaGuerra(string mensaje) {
+            MainThread.BeginInvokeOnMainThread(async () => {
+                await this.DisplayAlert("Se acabo la paz!", mensaje, "Aceptar");
+            });
+        }
 
 
         //sacar popup de mazoPropio
