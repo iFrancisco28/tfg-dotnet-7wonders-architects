@@ -79,21 +79,43 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities
         }
 
         public override string ToString() {
+            string tipoEsp = Type switch {
+                CardType.Resource => "Recurso",
+                CardType.Science => "Ciencia",
+                CardType.Military => "Militar",
+                CardType.VictoryPoint => "Puntos de Victoria"
+            };
+
             switch (Type) {
                 case CardType.Resource:
-                    return $"Type: {Type}, Resource: {Resource}";
+                    string recursoEs = Resource switch {
+                        ResourceType.Wood => "Madera",
+                        ResourceType.Stone => "Piedra",
+                        ResourceType.Clay => "Arcilla",
+                        ResourceType.Papyrus => "Papiro",
+                        ResourceType.Glass => "Botella", 
+                        ResourceType.Gold => "Oro"
+                    };
+
+                    return $"Tipo: {tipoEsp}, {recursoEs}";
 
                 case CardType.Science:
-                    return $"Type: {Type}, Science: {Science}";
+                    string cienciaEs = Science switch {
+                        ScienceType.Compass => "Compás",
+                        ScienceType.Tablet => "Tablilla",
+                        ScienceType.Gear => "Engranaje"
+                    };
+
+                    return $"Tipo: {tipoEsp}, {cienciaEs}";
 
                 case CardType.Military:
-                    return $"Type: {Type}, Horns: {Horns}";
+                    return $"Tipo: {tipoEsp}, con {Horns} cuernos";
 
                 case CardType.VictoryPoint:
-                    return $"Type: {Type}, VictoryPoints: {VictoryPoints}, HasCat: {HasCat}";
+                    return $"Tipo: {tipoEsp}, otorga {VictoryPoints} Puntos de Victoria{(HasCat ? " e incluye al gato" : "")}";
 
                 default:
-                    return $"Type: {Type}";
+                    return $"Tipo: {tipoEsp}";
             }
         }
 

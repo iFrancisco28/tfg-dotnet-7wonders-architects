@@ -25,6 +25,11 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
         //para ver si se acabo la partida
         public bool IsGameOver => _state.LocalPlayer.EtapaConstruccion >= 5 ||
                          (_state.RemotePlayer != null && _state.RemotePlayer.EtapaConstruccion >= 5);
+        //para pintar el mazo
+        public Card CartaTopMaravillaLocal => _state.LocalPlayer.WonderDeck.FirstOrDefault();
+        public Card CartaTopMaravillaRival => _state.RemotePlayer?.WonderDeck.FirstOrDefault();
+        public Card CartaTopMazoCentral => _state.MainDeck.FirstOrDefault();
+        public bool LocalTieneGato => _state.LocalPlayer.TengoGato;
 
 
         public GameManager(string localPlayerName, string localPlayerWonderString) {
@@ -497,7 +502,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
 
 
         public void EvaluarGuerra(Card cartaRobada) {
-            if (cartaRobada != null && cartaRobada.Type == Card.CardType.Military && cartaRobada.Horns > 0) {
+            if (cartaRobada.Type == Card.CardType.Military && cartaRobada.Horns > 0) {
                 _state.AvisosGuerraLevantadas += cartaRobada.Horns;
 
                 if (_state.AvisosGuerraLevantadas >= 3) {
@@ -544,6 +549,12 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Manager {
             _state.AvisosGuerraLevantadas = 0;
         }
 
+        public void EvaluarGato(Card cartaRobada) {
+            if (cartaRobada.HasCat) {
+                _state.LocalPlayer.TengoGato = true;
+                _state.RemotePlayer.TengoGato = false;
+            }
+        }
 
 
     }

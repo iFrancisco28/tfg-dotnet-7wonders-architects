@@ -40,7 +40,6 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         private void MostrarAviso(string user, string message) {
             //es el mainthread el que toca la ui
             MainThread.BeginInvokeOnMainThread(async () => {
-                // Lanzamos el diálogo simple y ya está
                 await this.DisplayAlert($"Aviso de {user}", message, "Genial");
             });
         }
@@ -94,6 +93,27 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
                 MainDeck.IsEnabled = meToca;
                 LocalWonderDeck.IsEnabled = meToca;
                 RemoteWonderDeck.IsEnabled = meToca;
+
+                //pintamos las carta de arriba de los mazos
+                var topLocal = _gameManager.CartaTopMaravillaLocal;
+                LocalWonderDeck.Source = ObtenerImagen(topLocal);
+                LocalWonderDeck.IsEnabled = meToca && topLocal != null;
+
+                var topRival = _gameManager.CartaTopMaravillaRival;
+                RemoteWonderDeck.Source = ObtenerImagen(topRival);
+                RemoteWonderDeck.IsEnabled = meToca && topRival != null;
+
+                var topCentral = _gameManager.CartaTopMazoCentral;
+                MainDeck.IsEnabled = meToca && topCentral != null;
+
+                if (_gameManager.LocalTieneGato) {
+                    CartaGato.Opacity = 1;
+                    CatCard.Opacity = 1;
+                    CartaGato.Source = ObtenerImagen(topCentral);
+                } else {
+                    CartaGato.Opacity = 0;
+                    CatCard.Opacity = 0;
+                }
             });
         }
 
@@ -120,6 +140,35 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             elementoVertical.IsVisible = true;
         }
 
+        private string ObtenerImagen(Card carta) => carta switch {
+            null => "carta_bocaabajo.png",
+
+            { Type: Card.CardType.Resource } => carta.Resource switch {
+                Card.ResourceType.Wood => "recurso_madera.png",
+                Card.ResourceType.Stone => "recurso_piedra.png",
+                Card.ResourceType.Clay => "recurso_arcilla.png",
+                Card.ResourceType.Papyrus => "recurso_papiro.png",
+                Card.ResourceType.Glass => "recurso_botella.png",
+                Card.ResourceType.Gold => "recurso_oro.png",
+                _ => "carta_bocaabajo.png"
+            },
+            { Type: Card.CardType.Science } => carta.Science switch {
+                Card.ScienceType.Compass => "ciencia_compas.png",
+                Card.ScienceType.Tablet => "ciencia_tablilla.png",
+                Card.ScienceType.Gear => "ciencia_engranaje.png",
+                _ => "carta_bocaabajo.png"
+            },
+            { Type: Card.CardType.Military } => carta.Horns switch {
+                0 => "guerra_cuernos_cero.png",
+                1 => "guerra_cuernos_uno.png",
+                _ => "guerra_cuernos_dos.png"
+            },
+            { Type: Card.CardType.VictoryPoint } => carta.HasCat ? "puntos_victoria_dos.png" : "puntos_victoria_tres.png",
+
+            _ => "carta_bocaabajo.png"
+        };
+
+
         private void ActualizarImagenesMaravilla(int etapa, string nombreMaravilla) {
             string idElementoImage = $"{nombreMaravilla}Part{etapa - 1}";
 
@@ -131,9 +180,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         }
 
 
-
-
-
+        //robar de mazos
         private async void GetMainDeckCard(object sender, EventArgs e) {
             Card cartaRobada = _gameManager.RobarCartaMazoPrincipal();
             await ProcesarRoboYConstruccion(cartaRobada);
@@ -162,6 +209,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
         }
 
 
+        //procesar robo
         private async Task ProcesarRoboYConstruccion(Card cartaRobada) {
             if (cartaRobada != null) {
                 await DisplayAlert("Has robado", cartaRobada.ToString(), "OK");
@@ -169,7 +217,8 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
                 await DisplayAlert("Aviso", "Este mazo está vacío.", "OK");
                 return; 
             }
-            
+
+            _gameManager.EvaluarGato(cartaRobada);
             _gameManager.EvaluarGuerra(cartaRobada);
 
             bool seHaConstruidoAlgo = _gameManager.ComprobarConstruccion();
@@ -182,23 +231,22 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects
             }
         }
 
+        //guerra
         private async void EnviarResultadoGuerra(string texto) {
             await _signalRService.SendGameNotificationAsync(_roomCode, texto);
         }
 
         private void MostrarAlertaGuerra(string mensaje) {
             MainThread.BeginInvokeOnMainThread(async () => {
-                await this.DisplayAlert("Se acabo la paz!", mensaje, "Aceptar");
+                await this.DisplayAlert("Empezó la guerra!", mensaje, "Aceptar");
             });
         }
 
 
+
+
         //sacar popup de mazoPropio
         private void ButtonShowPlayerDeck(object sender, EventArgs e) {
-            //para probar
-            //var popup = new PlayerDeckPopup(_gameManager.State.MainDeck);
-            //var popup = new PlayerDeckPopup(_gameManager._state.LocalPlayer.WonderDeck);
-
             var local = _gameManager.LocalPlayer;
             var rival = _gameManager.RemotePlayer;
 

@@ -11,6 +11,7 @@ namespace TFG_FranciscoCarreroCarrero_7WondersArchitects.Domain.Entities {
         [JsonInclude] public List<Card> HandDeck { get; set; } = new List<Card>();//mazoMano
         [JsonInclude] public int EtapaConstruccion { get; set; } = 0;
         [JsonInclude] public int FichasVictoriaMilitar { get; set; } = 0;
+        [JsonInclude] public bool TengoGato { get; set; } = false;
         [JsonInclude] public List<ProgressToken> FichasProgreso { get; set; } = new List<ProgressToken>();
 
         //constructor vacio para json
