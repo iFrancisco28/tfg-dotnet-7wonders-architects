@@ -21,7 +21,13 @@ El proyecto se estructura siguiendo una **Arquitectura en 3 Capas** fuertemente 
 * **Sincronización de Red P2P:** Inyección de dependencias del servicio de SignalR para mantener la conexión por WebSockets de forma global durante el ciclo de vida de la aplicación.
 
 ## Capturas de Pantalla
-<img width="250" alt="7WondersArhictects_paginaInicio" src="https://github.com/user-attachments/assets/6f667b05-20c2-4fe7-acd4-f27da0ea086f" /> <img width="250" alt="7WondersArhictects_tablero_turnoRival" src="https://github.com/user-attachments/assets/d3551a23-b4cd-4ac3-8c82-4e64eb8a71f0" /> <img width="250" alt="7WondersArhictects_tablero_turnoYo" src="https://github.com/user-attachments/assets/3036b189-9d37-460a-a7d6-60c9402e5742" /> <img width="250" alt="7WondersArhictects_inventario" src="https://github.com/user-attachments/assets/cd67e0b9-c987-4aff-8223-27d2ecc5bfd9" />
+<p align="center">
+  <img width="250" alt="7WondersArhictects_paginaInicio" src="https://github.com/user-attachments/assets/6f667b05-20c2-4fe7-acd4-f27da0ea086f" />
+  <img width="250" alt="7WondersArhictects_tablero_turnoRival" src="https://github.com/user-attachments/assets/d3551a23-b4cd-4ac3-8c82-4e64eb8a71f0" />
+  <br>
+  <img width="250" alt="7WondersArhictects_tablero_turnoYo" src="https://github.com/user-attachments/assets/3036b189-9d37-460a-a7d6-60c9402e5742" />
+  <img width="250" alt="7WondersArhictects_inventario" src="https://github.com/user-attachments/assets/cd67e0b9-c987-4aff-8223-27d2ecc5bfd9" />
+</p>
 
 
 ## Despliegue Local
