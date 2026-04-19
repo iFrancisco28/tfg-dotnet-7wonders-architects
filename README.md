@@ -1,13 +1,14 @@
-# 7Wonders-Architects-Server
-Descripción:
-Este repositorio contiene la API y el servidor en tiempo real encargado de gestionar la lógica de emparejamiento y sincronización de estado para la adaptación multijugador de 7 Wonders Architects.
+# 7Wonders-Architects-MAUI-Client
 
-Stack Técnico: .NET 9 | ASP.NET Core | SignalR | Azure App Service
+Descripción:
+Cliente multiplataforma desarrollado para la interacción con el servidor multijugador del juego. El proyecto automatiza el motor de reglas priorizando un código limpio, modular y mantenible.
+
+Stack Técnico: .NET 9 MAUI | C# | SignalR Client | JSON
 
 Arquitectura y Soluciones Implementadas:
 
-Gestión de Concurrencia: Implementación de ConcurrentDictionary para el manejo seguro de las salas activas en memoria, garantizando la integridad de los datos frente a accesos simultáneos desde múltiples hilos.
+Arquitectura en 3 Capas: Separación estricta de responsabilidades. La capa de Dominio (Entities) agrupa modelos POCO agnósticos al framework; la capa de Negocio (GameManager) procesa la lógica principal; y la Presentación reacciona a los cambios de estado.
 
-Comunicación P2P en Tiempo Real: Sincronización bidireccional de baja latencia mediante SignalR, operando como Hub central para la distribución y actualización del GameState en formato JSON.
+Sincronización y Renderizado Asíncrono: El cliente procesa el estado (JSON) recibido del servidor, realizando una inversión de roles dinámica (Local/Remote) y repintando la interfaz gráfica sin bloquear el hilo principal mediante MainThread.BeginInvokeOnMainThread.
 
-Despliegue y Configuración: Alojamiento en Microsoft Azure con políticas de CORS configuradas explícitamente para permitir la conexión segura y sin restricciones de clientes multiplataforma.
+Motor de Reglas Desacoplado: Desarrollo de algoritmos específicos para la evaluación de requisitos de construcción (evaluando dinámicamente recursos idénticos, distintos o comodines de oro) y resolución automática de conflictos militares.
